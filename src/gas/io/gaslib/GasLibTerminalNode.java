@@ -7,8 +7,8 @@ package gas.io.gaslib;
 
 import gas.io.XMLProperty;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -16,8 +16,8 @@ import units.UnitsTools;
  */
 public abstract class GasLibTerminalNode extends GasLibIntersection {
 
-    private double flowMax;
-    private double flowMin;
+    private @m3PERhr double flowMax;
+    private @m3PERhr double flowMin;
 
     public GasLibTerminalNode() {
         super();
@@ -28,19 +28,19 @@ public abstract class GasLibTerminalNode extends GasLibIntersection {
         properties.put("flowMax", new XMLProperty("flowMax", "1000m_cube_per_hour", "10000"));
     }
     
-    public double getFlowMax() {
+    public @m3PERhr double getFlowMax() {
         return flowMax;
     }
 
-    public void setFlowMax(double flowMax) {
+    public void setFlowMax(@m3PERhr double flowMax) {
         this.flowMax = flowMax;
     }
 
-    public double getFlowMin() {
+    public @m3PERhr double getFlowMin() {
         return flowMin;
     }
 
-    public void setFlowMin(double flowMin) {
+    public void setFlowMin(@m3PERhr double flowMin) {
         this.flowMin = flowMin;
     }
 

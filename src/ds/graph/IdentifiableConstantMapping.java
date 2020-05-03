@@ -19,6 +19,8 @@
  */
 package ds.graph;
 
+import units.qual.*;
+
 /**
  * 
  * @author gross

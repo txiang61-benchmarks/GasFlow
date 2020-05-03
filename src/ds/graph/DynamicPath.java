@@ -22,6 +22,7 @@ package ds.graph;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import units.qual.*;
 
 /**
  * The <code>DynamicPath</code> class represents a dynamic path in a {@link Network}.
@@ -35,7 +36,7 @@ import java.util.Iterator;
  */
 public class DynamicPath extends StaticPath{
     
-    private ArrayList<Integer> delays;
+    private ArrayList<@Dimensionless Integer> delays;
     
     /**
      * Constructs a new <code>DynamicPath</code> without edges. 
@@ -296,10 +297,10 @@ public class DynamicPath extends StaticPath{
     public int hashCode(){
         int h = 0;
         for (Integer i : delays) {
-            h += Math.floor(i / (delays.size()+edges.size()));
+            h += (@Dimensionless int) Math.floor(i / (delays.size() + edges.size()));
         }
         for (Edge e : edges){
-            h += Math.floor(e.hashCode() / (delays.size()+edges.size()));
+            h += (@Dimensionless int) Math.floor(e.hashCode() / (delays.size() + edges.size()));
         }
         return h;
     }

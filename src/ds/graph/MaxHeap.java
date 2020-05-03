@@ -29,7 +29,7 @@ import java.util.Map;
  *
  * @author Martin Groß
  */
-public class MaxHeap<O,P extends Number> {
+public class MaxHeap<O extends Object,P extends Number> {
     
     private List<Element<O,P>> elements;
     private Map<O,Integer> objectToIndex;

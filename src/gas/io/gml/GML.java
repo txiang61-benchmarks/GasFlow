@@ -94,7 +94,7 @@ public class GML {
         return this;
     }
 
-    public static <N, E extends AbstractEdge<N>> String fromGraph(Graph<N, E> graph) {
+    public static <N extends Object, E extends AbstractEdge<N>> String fromGraph(Graph<N, E> graph) {
         GML gml = new GML();
         gml.begin("graph");
         gml.add("directed %1$s\n", 1);
@@ -114,7 +114,7 @@ public class GML {
         return gml.toString();
     }
 
-    public static <N, E extends AbstractEdge<N>> void writeToFile(Graph<N, E> graph, String filename) {
+    public static <N extends Object, E extends AbstractEdge<N>> void writeToFile(Graph<N, E> graph, String filename) {
         try {
             PrintStream out = new PrintStream(new FileOutputStream(filename));
             out.append(fromGraph(graph));

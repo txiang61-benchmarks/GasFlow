@@ -26,6 +26,7 @@ import ds.graph.IdentifiableIntegerMapping;
 import ds.graph.Path;
 import ds.graph.StaticPath;
 import java.util.Iterator;
+import units.qual.*;
 
 /**
  * The <code>@link FlowOverTimePath</code> class represents the flow on one 

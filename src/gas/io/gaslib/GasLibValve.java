@@ -5,8 +5,8 @@
 
 package gas.io.gaslib;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -14,9 +14,9 @@ import units.UnitsTools;
  */
 public class GasLibValve extends GasLibConnection {
 
-    private double pressureDifferentialMax;
+    private @bar double pressureDifferentialMax;
 
-    public double getPressureDifferentialMax() {
+    public @bar double getPressureDifferentialMax() {
         return pressureDifferentialMax;
     }
 
@@ -28,6 +28,6 @@ public class GasLibValve extends GasLibConnection {
     @Override
     protected void parseProperties() {
         super.parseProperties();
-        pressureDifferentialMax = getProperties().get("pressureDifferentialMax").getAmount();
+        pressureDifferentialMax = (@bar double) getProperties().get("pressureDifferentialMax").getAmount();
     }
 }

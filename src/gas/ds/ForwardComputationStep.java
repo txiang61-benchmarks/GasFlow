@@ -10,6 +10,7 @@ import ds.graph.GasNode;
 import ds.graph.Graph;
 
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -19,7 +20,7 @@ public class ForwardComputationStep {
 
     private final GasFlow gasFlow;
     private final Graph<GasNode, GasEdge> network;
-    private double timeStep;
+    private @s double timeStep;
 
     public ForwardComputationStep(Graph<GasNode, GasEdge> network) {
         this.network = network;
@@ -30,11 +31,11 @@ public class ForwardComputationStep {
         return gasFlow;
     }
 
-    public double getTimeStep() {
+    public @s double getTimeStep() {
         return timeStep;
     }
 
-    public void setTimeStep(double timeStep) {
+    public void setTimeStep(@s double timeStep) {
         this.timeStep = timeStep;
     }
 }

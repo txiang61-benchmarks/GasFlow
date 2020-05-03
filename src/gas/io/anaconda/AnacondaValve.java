@@ -7,9 +7,8 @@ package gas.io.anaconda;
 
 import gas.io.XMLProperty;
 
-
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -18,19 +17,19 @@ import units.UnitsTools;
 public class AnacondaValve extends AnacondaConnection {
 
     private String compressorId;
-    private double flowInit;
-    private double pressureDifferentialMax;
-    private double pressureDifferentialMin;
+    private @m3PERhr double flowInit;
+    private @bar double pressureDifferentialMax;
+    private @bar double pressureDifferentialMin;
 
-    public double getFlowInit() {
+    public @m3PERhr double getFlowInit() {
         return flowInit;
     }    
     
-    public double getPressureDifferentialMax() {
+    public @bar double getPressureDifferentialMax() {
         return pressureDifferentialMax;
     }
 
-    public double getPressureDifferentialMin() {
+    public @bar double getPressureDifferentialMin() {
         return pressureDifferentialMin;
     }
 
@@ -63,9 +62,9 @@ public class AnacondaValve extends AnacondaConnection {
         } else {
             throw new AssertionError("Volumetric flow rate unit unknown: " + fMax.getUnit());
         }        
-        pressureDifferentialMax = getProperties().get("pressureDifferentialMax").getAmount();
+        pressureDifferentialMax = (@bar double) getProperties().get("pressureDifferentialMax").getAmount();
         if (getProperties().containsKey("pressureDifferentialMin")) {
-            pressureDifferentialMin = getProperties().get("").getAmount();
+            pressureDifferentialMin = (@bar double) getProperties().get("pressureDifferentialMin").getAmount();
         }
     }
 }

@@ -5,8 +5,8 @@
  */
 package gas.quantity;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -14,6 +14,6 @@ import units.UnitsTools;
  */
 public interface GasFlowRate {
 
-    public static final int UNIT = UnitsTools.kg/UnitsTools.s/UnitsTools.m2;
+    public static final @kgPERm2s int UNIT = UnitsTools.kg/UnitsTools.s/UnitsTools.m2;
 
 }

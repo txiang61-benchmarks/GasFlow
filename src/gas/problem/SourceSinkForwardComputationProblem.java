@@ -12,6 +12,7 @@ import ds.graph.IdentifiableAmountMapping;
 import gas.quantity.EdgeConstant;
 import static java.lang.Math.PI;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -22,20 +23,20 @@ public class SourceSinkForwardComputationProblem {
     /**
      * Compressibility Factor (z)
      */
-    private double compressibilityFactor;
+    private @Dimensionless double compressibilityFactor;
     /**
      * Dynamic Viscosity (eta in Pa s)
      */
-    private double dynamicViscosity;
+    private @Pas double dynamicViscosity;
     
-    private IdentifiableAmountMapping<GasEdge, Double> edgeConstants;
+    private IdentifiableAmountMapping<GasEdge, @m2s2 Double> edgeConstants;
     
        
-    private IdentifiableAmountMapping<GasNode, Double> initialPressures;
+    private IdentifiableAmountMapping<GasNode, @bar Double> initialPressures;
     /**
      * Molar mass of the gas mixture. (M)
      */
-    private double molarMass;
+    private @gPERmol double molarMass;
     /**
      * The network
      */
@@ -44,44 +45,44 @@ public class SourceSinkForwardComputationProblem {
     private GasNode sink;
     private GasNode source;
     
-    private double sourcePressure;
-    private double sinkPressure;    
+    private @bar double sourcePressure;
+    private @bar double sinkPressure;    
     /**
      * Specific gas constant (R_s)
      */
-    private volatile double specificGasConstant;
+    private volatile @m2PERs2K double specificGasConstant;
     /**
      * Speed of sound (c)
      */
-    private double speedOfSound;
+    private @mPERs double speedOfSound;
     /**
      * Temperature (T)
      */
-    private double temperature;
+    private @K double temperature;
     /**
      *
      */
-    private double timeStep;
+    private @s double timeStep;
 
     public SourceSinkForwardComputationProblem() {
         sourcePressure = 10 * UnitsTools.bar;
         sinkPressure = 1 * UnitsTools.bar;        
         compressibilityFactor = 0.9;
         dynamicViscosity = 0.000011 * UnitsTools.Pa*UnitsTools.s;
-        molarMass = 0.0183 * UnitsTools.kg/UnitsTools.mol;
+        molarMass = 0.0183 * UnitsTools.g/UnitsTools.mol;
         temperature = 288.15 * UnitsTools.K;
-        specificGasConstant = UnitsTools.R/molarMass;
+        specificGasConstant = UnitsTools.R/UnitsTools.gPERmol_to_kgPERmol(molarMass);
         speedOfSound = Math.sqrt(compressibilityFactor*specificGasConstant*temperature);
         /****/
         timeStep = 1 * UnitsTools.s;
     }
 
-    protected double computeFrictionFactor(double roughness, double diameter) {
+    protected @Dimensionless double computeFrictionFactor(@m double roughness, @m double diameter) {
         double d = roughness/diameter;
         return 1/((1.14 - 2*Math.log10(d))*(1.14 - 2*Math.log10(d)));
     }    
 
-    protected double computeEdgeCoefficient(GasEdge edge) {
+    protected @m2s2 double computeEdgeCoefficient(GasEdge edge) {
         double diameter = edge.getDiameter();
         double length = edge.getLength();
         double slope = edge.getSlope();
@@ -94,7 +95,7 @@ public class SourceSinkForwardComputationProblem {
         return term4;
     };
     
-    protected double computeExactEdgeCoefficient(GasEdge edge, double precision) {
+    protected @m2s2 double computeExactEdgeCoefficient(GasEdge edge, @m2s2 double precision) {
         double diameter = edge.getDiameter();
         double length = edge.getLength();
         double slope = edge.getSlope();
@@ -108,7 +109,7 @@ public class SourceSinkForwardComputationProblem {
     };    
     
     protected void updateConstants() {
-        specificGasConstant = UnitsTools.R/molarMass;
+        specificGasConstant = UnitsTools.R/UnitsTools.gPERmol_to_kgPERmol(molarMass);
         speedOfSound = Math.sqrt(compressibilityFactor*specificGasConstant*temperature);
     }
 
@@ -119,7 +120,7 @@ public class SourceSinkForwardComputationProblem {
         }
     }
     
-    public double getCompressibilityFactor() {
+    public @Dimensionless double getCompressibilityFactor() {
         return compressibilityFactor;
     }
 
@@ -128,32 +129,32 @@ public class SourceSinkForwardComputationProblem {
         updateConstants();
     }
 
-    public double getDynamicViscosity() {
+    public @Pas double getDynamicViscosity() {
         return dynamicViscosity;
     }
 
     @Deprecated
-    public void setDynamicViscosity(double dynamicViscosity) {
+    public void setDynamicViscosity(@Pas double dynamicViscosity) {
         this.dynamicViscosity = dynamicViscosity;
     }    
     
-    public IdentifiableAmountMapping<GasEdge, Double> getEdgeConstants() {
+    public IdentifiableAmountMapping<GasEdge, @m2s2 Double> getEdgeConstants() {
         return edgeConstants;
     }    
     
-    public IdentifiableAmountMapping<GasNode, Double> getInitialPressures() {
+    public IdentifiableAmountMapping<GasNode, @bar Double> getInitialPressures() {
         return initialPressures;
     }
 
-    public void setInitialPressures(IdentifiableAmountMapping<GasNode, Double> initialPressures) {
+    public void setInitialPressures(IdentifiableAmountMapping<GasNode, @bar Double> initialPressures) {
         this.initialPressures = initialPressures;
     }    
     
-    public double getMolarMass() {
+    public @gPERmol double getMolarMass() {
         return molarMass;
     }
 
-    public void setMolarMass(double molarMass) {
+    public void setMolarMass(@gPERmol double molarMass) {
         this.molarMass = molarMass;
         updateConstants();
     }
@@ -175,37 +176,37 @@ public class SourceSinkForwardComputationProblem {
             node.setVolume(volume);
         }
         for (GasEdge edge : network.edges()) {
-            edgeConstants.set(edge, computeExactEdgeCoefficient(edge, 0.0));            
+            edgeConstants.set(edge, computeExactEdgeCoefficient(edge, (@m2s2 double) 0.0));            
         }
     }    
     
     @Deprecated
-    public double getReynoldsNumber(double diameter, double velocity) {
+    public @Dimensionless double getReynoldsNumber(@m double diameter, @mPERs double velocity) {
         return diameter*velocity/dynamicViscosity;
     }
 
-    public double getSpecificGasConstant() {
+    public @m2PERs2K double getSpecificGasConstant() {
         return specificGasConstant;
     }
 
-    public double getSpeedOfSound() {
+    public @mPERs double getSpeedOfSound() {
         return speedOfSound;
     }    
     
-    public double getTemperature() {
+    public @K double getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
+    public void setTemperature(@K double temperature) {
         this.temperature = temperature;
         updateConstants();
     }
 
-    public double getTimeStep() {
+    public @s double getTimeStep() {
         return timeStep;
     }
 
-    public void setTimeStep(double timeStep) {
+    public void setTimeStep(@s double timeStep) {
         this.timeStep = timeStep;
     }
 
@@ -225,19 +226,19 @@ public class SourceSinkForwardComputationProblem {
         this.source = source;
     }
 
-    public double getSourcePressure() {
+    public @bar double getSourcePressure() {
         return sourcePressure;
     }
 
-    public void setSourcePressure(double sourcePressure) {
+    public void setSourcePressure(@bar double sourcePressure) {
         this.sourcePressure = sourcePressure;
     }
 
-    public double getSinkPressure() {
+    public @bar double getSinkPressure() {
         return sinkPressure;
     }
 
-    public void setSinkPressure(double sinkPressure) {
+    public void setSinkPressure(@bar double sinkPressure) {
         this.sinkPressure = sinkPressure;
     }
     

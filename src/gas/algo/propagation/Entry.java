@@ -5,13 +5,15 @@
  */
 package gas.algo.propagation;
 
+import units.qual.*;
+
 /**
  *
  * @author Martin
  */
 public class Entry {
     
-    private long runtime;
+    private @ns long runtime;
     private int leafReductions;
     private int serialReductions;
     private int parallelReductions;
@@ -47,11 +49,11 @@ public class Entry {
 
     
     
-    public long getRuntime() {
+    public @ns long getRuntime() {
         return runtime;
     }
 
-    public void setRuntime(long runtime) {
+    public void setRuntime(@ns long runtime) {
         this.runtime = runtime;
     }
 

@@ -10,6 +10,7 @@ import ds.graph.GasEdge;
 import ds.graph.GasNode;
 import gas.problem.SourceSinkForwardComputationProblem;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -17,13 +18,13 @@ import units.UnitsTools;
  */
 public class OnionGenerator {
 
-    private double edgeDiameter;
-    private double edgeLength;
-    private double edgeRoughness;
-    private double sinkHeight;
-    private double sinkPressure;
-    private double sourceHeight;
-    private double sourcePressure;
+    private @m double edgeDiameter;
+    private @m double edgeLength;
+    private @m double edgeRoughness;
+    private @m double sinkHeight;
+    private @bar double sinkPressure;
+    private @m double sourceHeight;
+    private @bar double sourcePressure;
 
     public OnionGenerator() {
         edgeDiameter = 1 * UnitsTools.m;
@@ -35,7 +36,7 @@ public class OnionGenerator {
         sourcePressure = 40 * UnitsTools.bar;
     }
 
-    public SourceSinkForwardComputationProblem generate(int layers, double sourcePressure, double sinkPressure) {
+    public SourceSinkForwardComputationProblem generate(int layers, @bar double sourcePressure, @bar double sinkPressure) {
         SourceSinkForwardComputationProblem p = generate(layers);
         p.setSourcePressure(sourcePressure);
         p.setSinkPressure(sinkPressure);
@@ -83,59 +84,59 @@ public class OnionGenerator {
         return problem;
     }
 
-    public double getEdgeDiameter() {
+    public @m double getEdgeDiameter() {
         return edgeDiameter;
     }
 
-    public void setEdgeDiameter(double edgeDiameter) {
+    public void setEdgeDiameter(@m double edgeDiameter) {
         this.edgeDiameter = edgeDiameter;
     }
 
-    public double getEdgeLength() {
+    public @m double getEdgeLength() {
         return edgeLength;
     }
 
-    public void setEdgeLength(double edgeLength) {
+    public void setEdgeLength(@m double edgeLength) {
         this.edgeLength = edgeLength;
     }
 
-    public double getEdgeRoughness() {
+    public @m double getEdgeRoughness() {
         return edgeRoughness;
     }
 
-    public void setEdgeRoughness(double edgeRoughness) {
+    public void setEdgeRoughness(@m double edgeRoughness) {
         this.edgeRoughness = edgeRoughness;
     }
 
-    public double getSinkHeight() {
+    public @m double getSinkHeight() {
         return sinkHeight;
     }
 
-    public void setSinkHeight(double sinkHeight) {
+    public void setSinkHeight(@m double sinkHeight) {
         this.sinkHeight = sinkHeight;
     }
 
-    public double getSinkPressure() {
+    public @bar double getSinkPressure() {
         return sinkPressure;
     }
 
-    public void setSinkPressure(double sinkPressure) {
+    public void setSinkPressure(@bar double sinkPressure) {
         this.sinkPressure = sinkPressure;
     }
 
-    public double getSourceHeight() {
+    public @m double getSourceHeight() {
         return sourceHeight;
     }
 
-    public void setSourceHeight(double sourceHeight) {
+    public void setSourceHeight(@m double sourceHeight) {
         this.sourceHeight = sourceHeight;
     }
 
-    public double getSourcePressure() {
+    public @bar double getSourcePressure() {
         return sourcePressure;
     }
 
-    public void setSourcePressure(double sourcePressure) {
+    public void setSourcePressure(@bar double sourcePressure) {
         this.sourcePressure = sourcePressure;
     }
 }

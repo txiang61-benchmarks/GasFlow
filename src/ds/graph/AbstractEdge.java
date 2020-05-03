@@ -9,7 +9,7 @@ package ds.graph;
  *
  * @author Martin Groß
  */
-public class AbstractEdge<N> {
+public class AbstractEdge<N extends Object> {
 
     /**
      * The start node of this edge.

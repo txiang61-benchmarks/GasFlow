@@ -26,7 +26,7 @@ import org.apache.commons.math3.random.RandomGenerator;
  * @param <N> the node class of the generated graph.
  * @param <E> the edge class of the generated graph.
  */
-public abstract class MergingGSPGGenerator<N, E extends AbstractEdge<N>> implements Generator<N, E, GSPG<N, E>> {
+public abstract class MergingGSPGGenerator<N extends Object, E extends AbstractEdge<N>> implements Generator<N, E, GSPG<N, E>> {
 
     /**
      * The maximum degree of a node in the generated graph.

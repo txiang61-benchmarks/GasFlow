@@ -8,6 +8,7 @@ package gas.io.anaconda;
 import gas.io.Pipe;
 import gas.io.XMLProperty;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -15,33 +16,33 @@ import units.UnitsTools;
  */
 public class AnacondaPipe extends AnacondaConnection implements Pipe {
 
-    private double diameter;
-    private double flowInInit;
-    private double flowOutInit;    
-    private double length;
-    private double roughness;
+    private @mm double diameter;
+    private @m3PERhr double flowInInit;
+    private @m3PERhr double flowOutInit;    
+    private @mm double length;
+    private @mm double roughness;
 
-    public double computeSlope() {
-        return (getTo().getHeight() - getFrom().getHeight())/getLength();
+    public @Dimensionless double computeSlope() {
+        return (getTo().getHeight() - getFrom().getHeight())/UnitsTools.mm_to_m(getLength());
     }
 
-    public double getDiameter() {
+    public @mm double getDiameter() {
         return diameter;
     }
 
-    public double getFlowInInit() {
+    public @m3PERhr double getFlowInInit() {
         return flowInInit;
     }
 
-    public double getFlowOutInit() {
+    public @m3PERhr double getFlowOutInit() {
         return flowOutInit;
     }
 
-    public double getLength() {
+    public @mm double getLength() {
         return length;
     }
 
-    public double getRoughness() {
+    public @mm double getRoughness() {
         return roughness;
     }
     
@@ -53,7 +54,7 @@ public class AnacondaPipe extends AnacondaConnection implements Pipe {
     @Override
     protected void parseProperties() {
         super.parseProperties();
-        diameter = getProperties().get("diameter").getAmount();
+        diameter = (@mm double) getProperties().get("diameter").getAmount();
         XMLProperty fMax = getProperties().get("flowInInit");
         if (fMax.getUnit().equals("1000m_cube_per_hour")) {
             flowInInit = Double.parseDouble(fMax.getValue()) * 1000 * UnitsTools.m3/UnitsTools.hr;
@@ -66,7 +67,7 @@ public class AnacondaPipe extends AnacondaConnection implements Pipe {
         } else {
             throw new AssertionError("Volumetric flow rate unit unknown: " + fMin.getUnit());
         }
-        length = getProperties().get("length").getAmount();
-        roughness = getProperties().get("roughness").getAmount();
+        length = (@mm double) getProperties().get("length").getAmount();
+        roughness = (@mm double) getProperties().get("roughness").getAmount();
     }
 }

@@ -5,9 +5,8 @@
 
 package ds.graph;
 
-
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -16,8 +15,8 @@ import units.UnitsTools;
 public class GasNode implements Identifiable {
 
     private int id;
-    private double height;
-    private double volume;
+    private @m double height;
+    private @m3 double volume;
 
     public GasNode() {
         
@@ -27,30 +26,30 @@ public class GasNode implements Identifiable {
         id = i;
     }
 
-    public GasNode(int id, double height) {
+    public GasNode(int id, @m double height) {
         this.id = id;
         this.height = height;
     }    
     
-    public GasNode(int id, double height, double volume) {
+    public GasNode(int id, @m double height, @m3 double volume) {
         this.id = id;
         this.height = height;
         this.volume = volume;
     }
 
-    public double getHeight() {
+    public @m double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(@m double height) {
         this.height = height;
     }
 
-    public double getVolume() {
+    public @m3 double getVolume() {
         return volume;
     }
 
-    public void setVolume(double volume) {
+    public void setVolume(@m3 double volume) {
         this.volume = volume;
     }
 

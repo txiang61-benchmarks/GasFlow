@@ -5,6 +5,8 @@
 
 package gas.io.anaconda;
 
+import units.qual.*;
+
 /**
  *
  * @author Martin Groß
@@ -12,43 +14,43 @@ package gas.io.anaconda;
 public class AnacondaCompressorStation extends AnacondaConnection {
     
     private String bypassValveId;
-    private double efficiency;
-    private double flowInit;
-    private double minDownTime;
-    private double minRunTime;
-    private double powerMax;
-    private double powerMin;
+    private @Dimensionless double efficiency;
+    private @m3PERhr double flowInit;
+    private @s double minDownTime;
+    private @s double minRunTime;
+    private @W double powerMax;
+    private @W double powerMin;
     private double scalingOfControl;
-    private double shutdownCosts;
-    private double startupCosts;
-    private double specificFuelConsumption;
+    private @m3 double shutdownCosts;
+    private @m3 double startupCosts;
+    private @Dimensionless double specificFuelConsumption;
     private String typeOfControl;
 
     public String getBypassValveId() {
         return bypassValveId;
     }
 
-    public double getEfficiency() {
+    public @Dimensionless double getEfficiency() {
         return efficiency;
     }
 
-    public double getFlowInit() {
+    public @m3PERhr double getFlowInit() {
         return flowInit;
     }
 
-    public double getMinDownTime() {
+    public @s double getMinDownTime() {
         return minDownTime;
     }
 
-    public double getMinRunTime() {
+    public @s double getMinRunTime() {
         return minRunTime;
     }
 
-    public double getPowerMax() {
+    public @W double getPowerMax() {
         return powerMax;
     }
 
-    public double getPowerMin() {
+    public @W double getPowerMin() {
         return powerMin;
     }
 
@@ -56,15 +58,15 @@ public class AnacondaCompressorStation extends AnacondaConnection {
         return scalingOfControl;
     }
 
-    public double getShutdownCosts() {
+    public @m3 double getShutdownCosts() {
         return shutdownCosts;
     }
 
-    public double getStartupCosts() {
+    public @m3 double getStartupCosts() {
         return startupCosts;
     }
 
-    public double getSpecificFuelConsumption() {
+    public @Dimensionless double getSpecificFuelConsumption() {
         return specificFuelConsumption;
     }
 

@@ -179,7 +179,7 @@ public class BoundPropagationSimpleMain {
     public static void processDirectory(File inputFile) {
         try {
             for (Path path : Files.list(inputFile.toPath()).collect(Collectors.toList())) {
-                processFile(path.toFile());
+                processFile(((Path)path).toFile());
             }
         } catch (IOException ex) {
             Logger.getLogger(BoundPropagationSimpleMain.class.getName()).log(Level.SEVERE, null, ex);

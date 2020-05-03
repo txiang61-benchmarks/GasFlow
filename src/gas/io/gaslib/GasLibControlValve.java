@@ -5,9 +5,10 @@
 
 package gas.io.gaslib;
 
+import org.w3c.dom.Element;
 
 import units.UnitsTools;
-import org.w3c.dom.Element;
+import units.qual.*;
 
 /**
  *
@@ -17,12 +18,12 @@ public class GasLibControlValve extends GasLibConnection {
 
     private boolean gasPreheaterExisting;
     private boolean internalBypassRequired;
-    private double pressureDifferentialMax;
-    private double pressureDifferentialMin;
-    private double pressureInMin;
-    private double pressureLossIn;
-    private double pressureLossOut;
-    private double pressureOutMax;
+    private @bar double pressureDifferentialMax;
+    private @bar double pressureDifferentialMin;
+    private @bar double pressureInMin;
+    private @bar double pressureLossIn;
+    private @bar double pressureLossOut;
+    private @bar double pressureOutMax;
 
     public boolean isGasPreheaterExisting() {
         return gasPreheaterExisting;
@@ -32,27 +33,27 @@ public class GasLibControlValve extends GasLibConnection {
         return internalBypassRequired;
     }
 
-    public double getPressureDifferentialMax() {
+    public @bar double getPressureDifferentialMax() {
         return pressureDifferentialMax;
     }
 
-    public double getPressureDifferentialMin() {
+    public @bar double getPressureDifferentialMin() {
         return pressureDifferentialMin;
     }
 
-    public double getPressureInMin() {
+    public @bar double getPressureInMin() {
         return pressureInMin;
     }
 
-    public double getPressureLossIn() {
+    public @bar double getPressureLossIn() {
         return pressureLossIn;
     }
 
-    public double getPressureLossOut() {
+    public @bar double getPressureLossOut() {
         return pressureLossOut;
     }
 
-    public double getPressureOutMax() {
+    public @bar double getPressureOutMax() {
         return pressureOutMax;
     }
 
@@ -83,18 +84,18 @@ public class GasLibControlValve extends GasLibConnection {
     protected void parseProperties() {
         super.parseProperties();
         if (getProperties().containsKey("pressureDifferentialMax")) {
-            pressureDifferentialMax = getProperties().get("pressureDifferentialMax").getAmount();
+            pressureDifferentialMax = (@bar double) getProperties().get("pressureDifferentialMax").getAmount();
         }
         if (getProperties().containsKey("pressureDifferentialMin")) {
-            pressureDifferentialMin = getProperties().get("pressureDifferentialMin").getAmount();
+            pressureDifferentialMin = (@bar double) getProperties().get("pressureDifferentialMin").getAmount();
         }
-        pressureInMin = getProperties().get("pressureInMin").getAmount();
-        pressureOutMax = getProperties().get("pressureOutMax").getAmount();
+        pressureInMin = (@bar double) getProperties().get("pressureInMin").getAmount();
+        pressureOutMax = (@bar double) getProperties().get("pressureOutMax").getAmount();
         if (getProperties().containsKey("pressureLossIn")) {
-            pressureLossIn = getProperties().get("pressureLossIn").getAmount();
+            pressureLossIn = (@bar double) getProperties().get("pressureLossIn").getAmount();
         }
         if (getProperties().containsKey("pressureLossOut")) {
-            pressureLossOut = getProperties().get("pressureLossOut").getAmount();
+            pressureLossOut = (@bar double) getProperties().get("pressureLossOut").getAmount();
         }
     }
     

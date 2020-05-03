@@ -8,6 +8,7 @@ package gas.common;
 import gas.io.ConnectionType;
 
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -15,9 +16,9 @@ import units.UnitsTools;
  */
 public interface Connection<I extends Intersection> {
 
-    double getFlowMax();
+    @m3PERhr double getFlowMax();
 
-    double getFlowMin();
+    @m3PERhr double getFlowMin();
 
     I getFrom();
 

@@ -12,8 +12,8 @@ import static gas.io.IntersectionType.SINK;
 import static gas.io.IntersectionType.SOURCE;
 import gas.io.XMLProperty;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -38,9 +38,9 @@ public abstract class AnacondaIntersection extends XMLIntersection {
     private String idPos;
     private double maxCtrl;
     private double minCtrl;
-    private double pressureInit;
+    private @bar double pressureInit;
     private double scalingOfControl; 
-    private double temperature;
+    private @K double temperature;
 
     public boolean isControllable() {
         return controllable;
@@ -58,7 +58,7 @@ public abstract class AnacondaIntersection extends XMLIntersection {
         return minCtrl;
     }
 
-    public double getPressureInit() {
+    public @bar double getPressureInit() {
         return pressureInit;
     }
 
@@ -66,7 +66,7 @@ public abstract class AnacondaIntersection extends XMLIntersection {
         return scalingOfControl;
     }
 
-    public double getTemperature() {
+    public @K double getTemperature() {
         return temperature; 
     }
 
@@ -100,11 +100,11 @@ public abstract class AnacondaIntersection extends XMLIntersection {
     @Override
     protected void parseProperties() {
         super.parseProperties();
-        pressureInit = getProperties().get("pressureInit").getAmount();
+        pressureInit = (@bar double) getProperties().get("pressureInit").getAmount();
         XMLProperty pTemperature = getProperties().get("temperature");     
         if (pTemperature.getUnit().isEmpty() || pTemperature.getUnit().equals("Celsius")) {
             pTemperature.setUnit("C");
         }
-        temperature = pTemperature.getAmount(); 
+        temperature = (@K double) pTemperature.getAmount(); 
     }
 }

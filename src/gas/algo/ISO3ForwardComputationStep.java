@@ -17,6 +17,7 @@ import gas.problem.SourceSinkForwardComputationProblem;
 import gas.quantity.EdgeConstant;
 import javolution.lang.MathLib;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ISO3ForwardComputationStep extends Algorithm<SourceSinkForwardCompu
     
     
 
-    protected double sgnSqrt(double amount) {
+    protected @kgPERs double sgnSqrt(@kg2PERs2 double amount) {
         return MathLib.sqrt(amount);
     }
     
@@ -42,16 +43,16 @@ public class ISO3ForwardComputationStep extends Algorithm<SourceSinkForwardCompu
         ForwardComputationStep flow = new ForwardComputationStep(problem.getNetwork());
         GasFlow currentFlow = flow.getNextGasFlow();    
 
-        IdentifiableAmountMapping<GasNode, Double> pressures = problem.getInitialPressures();
-        IdentifiableAmountMapping<GasEdge, Double> edgeConstants = problem.getEdgeConstants();
-        IdentifiableAmountMapping<GasEdge, Double> massFlowRates = currentFlow.getMassFlowRates();
-        IdentifiableAmountMapping<GasNode, Double> massFlowRateDeltas = new IdentifiableAmountMapping<>(network.nodes());
-        IdentifiableAmountMapping<GasNode, Double> newPressures = currentFlow.getPressures();
+        IdentifiableAmountMapping<GasNode, @bar Double> pressures = problem.getInitialPressures();
+        IdentifiableAmountMapping<GasEdge, @m2s2 Double> edgeConstants = problem.getEdgeConstants();
+        IdentifiableAmountMapping<GasEdge, @kgPERs Double> massFlowRates = currentFlow.getMassFlowRates();
+        IdentifiableAmountMapping<GasNode, @kgPERs Double> massFlowRateDeltas = new IdentifiableAmountMapping<>(network.nodes());
+        IdentifiableAmountMapping<GasNode, @bar Double> newPressures = currentFlow.getPressures();
 
         for (GasEdge edge : network.edges()) {
-            double edgeConstant = edgeConstants.get(edge);
-            double pressureStart = pressures.get(edge.start());
-            double pressureEnd = pressures.get(edge.end());
+            double edgeConstant = (@m2s2 double) edgeConstants.get(edge);
+            double pressureStart = UnitsTools.bar_to_pa((@bar double) pressures.get(edge.start()));
+            double pressureEnd = UnitsTools.bar_to_pa((@bar double)pressures.get(edge.end()));
 
             double pressureStartSq = pressureStart*pressureStart;
 
@@ -65,10 +66,10 @@ public class ISO3ForwardComputationStep extends Algorithm<SourceSinkForwardCompu
             //System.out.println("Step: Processing node " + node.id());
             double massFlowRateDelta = 0 * UnitsTools.kg/UnitsTools.s;
             for (GasEdge edge : network.incomingEdges(node)) {
-                massFlowRateDelta = massFlowRateDelta + massFlowRates.get(edge);
+                massFlowRateDelta = massFlowRateDelta + (@kgPERs double) massFlowRates.get(edge);
             }
             for (GasEdge edge : network.outgoingEdges(node)) {
-                massFlowRateDelta = massFlowRateDelta - massFlowRates.get(edge);
+                massFlowRateDelta = massFlowRateDelta - (@kgPERs double) massFlowRates.get(edge);
             }
             massFlowRateDeltas.set(node, massFlowRateDelta);
         }
@@ -77,12 +78,12 @@ public class ISO3ForwardComputationStep extends Algorithm<SourceSinkForwardCompu
 
         for (GasNode node : network.nodes()) {
             //System.out.println(problem.getSpeedOfSound().getRelativeError());
-            double gasMass = UnitsTools.g_to_kg(pressures.get(node)/(problem.getSpeedOfSound()*problem.getSpeedOfSound())*node.getVolume());
+            @kg double gasMass = UnitsTools.g8_to_kg((@bar double) pressures.get(node)/(problem.getSpeedOfSound()*problem.getSpeedOfSound())*node.getVolume());
             //System.out.println("m O: " + gasMass.getRelativeError());
-            double massFlowRateDelta = massFlowRateDeltas.get(node);
+            double massFlowRateDelta = (@kgPERs double) massFlowRateDeltas.get(node);
             double newDensity = (gasMass + (massFlowRateDelta*timeStep))/node.getVolume();
 
-            double newPressure = UnitsTools.pa_to_bar(newDensity*problem.getSpeedOfSound()*problem.getSpeedOfSound());
+            @bar double newPressure = UnitsTools.pa_to_bar(newDensity*problem.getSpeedOfSound()*problem.getSpeedOfSound());
             //System.out.println("p^2 N: " + newPressure.getRelativeError());
             newPressures.set(node, newPressure);
         }

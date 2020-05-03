@@ -20,6 +20,7 @@
 package ds.graph;
 
 import java.util.Iterator;
+import units.qual.*;
 
 /**
  * The <code>StaticPath</code> class represents a static path in a

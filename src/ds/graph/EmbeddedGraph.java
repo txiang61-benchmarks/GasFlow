@@ -7,6 +7,7 @@ package ds.graph;
 
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
+import units.qual.*;
 
 /**
  *
@@ -53,26 +54,26 @@ public class EmbeddedGraph<G extends Graph<Node,Edge>> {
         return coordinates.get(v).distance(coordinates.get(w));
     }
 
-    public double minimumAngle(Node v, Point2D.Double point) {
+    public @rad double minimumAngle(Node v, Point2D.Double point) {
         if (graph.degree(v) == 0) {
-            return Double.POSITIVE_INFINITY;
+            return (@rad double) Double.POSITIVE_INFINITY;
         }
         Point2D o = coordinates.get(v);
-        double min = Double.POSITIVE_INFINITY;
+        double min = (@rad double) Double.POSITIVE_INFINITY;
         for (Node node : graph.adjacentNodes(v)) {
             Point2D.Double point2 = null;
             point2 = coordinates.get(node);
             double angle1 = Math.atan2(point.getY() - o.getY(), point.getX() - o.getX());
             double angle2 = Math.atan2(point2.getY() - o.getY(), point2.getX() - o.getX());
-            if (angle1 < 0) {
-                angle1 += 2 * Math.PI;
+            if (angle1 < (@rad int) 0) {
+                angle1 += (@rad double) 2 * Math.PI;
             }
-            if (angle2 < 0) {
-                angle2 += 2 * Math.PI;
+            if (angle2 < (@rad int) 0) {
+                angle2 += (@rad double) 2 * Math.PI;
             }
             double diff = Math.abs(angle1 - angle2);
-            if (diff > Math.PI) {
-                diff -= Math.PI;
+            if (diff > (@rad double) Math.PI) {
+                diff -= (@rad double) Math.PI;
             }
             if (diff < min) {
                 min = diff;
@@ -81,7 +82,7 @@ public class EmbeddedGraph<G extends Graph<Node,Edge>> {
         return min;
     }
 
-    public double minimumAngle(Node v, Node w) {
+    public @rad double minimumAngle(Node v, Node w) {
         return Math.min(minimumAngle(v, coordinates.get(w)), minimumAngle(w, coordinates.get(v)));
     }
 

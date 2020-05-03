@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import units.qual.*;
+
 /**
  * The basic framework class for algorithms. It allows to define input and
  * output of an algorithm by using generics and provides the framework to run an
@@ -89,7 +91,7 @@ public abstract class Algorithm<P, S> {
     /**
      * The runtime of the algorithm in milliseconds.
      */
-    private long runtime;
+    private @ms long runtime;
     /**
      * The solution to the problem instance, once available.
      */
@@ -97,7 +99,7 @@ public abstract class Algorithm<P, S> {
     /**
      * The point of time at which the execution of the algorithm started.
      */
-    private long startTime;
+    private @ms long startTime;
     /**
      * The state of execution of the algorithm.
      */
@@ -338,9 +340,9 @@ public abstract class Algorithm<P, S> {
         }
         if (this.problem != problem) {
             this.problem = problem;
-            runtime = 0;
+            runtime = (@ms long) 0;
             solution = null;
-            startTime = 0;
+            startTime = (@ms long) 0;
             state = State.WAITING;
         }
     }
@@ -389,7 +391,7 @@ public abstract class Algorithm<P, S> {
      * @return the runtime of the algorithm in milliseconds.
      * @throws IllegalStateException if the algorithm has not terminated yet.
      */
-    public final long getRuntime() {
+    public final @ms long getRuntime() {
         if (state == State.SOLVED || state == State.SOLVING_FAILED) {
             return runtime;
         }
@@ -435,7 +437,7 @@ public abstract class Algorithm<P, S> {
      * @throws IllegalStateException if the execution of the algorithm has not
      * yet begun.
      */
-    public final long getStartTime() {
+    public final @ms long getStartTime() {
         if (state != State.WAITING) {
             return startTime;
         }
