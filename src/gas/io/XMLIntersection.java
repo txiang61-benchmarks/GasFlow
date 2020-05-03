@@ -23,9 +23,9 @@ import units.qual.*;
 public abstract class XMLIntersection extends XMLElementWithID implements Intersection {
 
     private final List<XMLConnection> connections;
-    private double height;
-    private double pressureMax;
-    private double pressureMin;
+    private @m double height;
+    private @bar double pressureMax;
+    private @bar double pressureMin;
     protected final Map<String, XMLProperty> properties;
     private double x;
     private double y;
@@ -43,7 +43,7 @@ public abstract class XMLIntersection extends XMLElementWithID implements Inters
         createProperty("pressureMax", pressureMax);
     }
 
-    protected void createProperty(String name, double amount) {
+    protected void createProperty(String name, @UnknownUnits double amount) {
         properties.put(name, new XMLProperty(name, "" + amount, "" + amount));
     }
 
@@ -57,7 +57,7 @@ public abstract class XMLIntersection extends XMLElementWithID implements Inters
         return connections;
     }
 
-    public double getHeight() {
+    public @m double getHeight() {
         return height;
     }
 
@@ -119,9 +119,9 @@ public abstract class XMLIntersection extends XMLElementWithID implements Inters
         if (pHeight.getUnit().isEmpty() || pHeight.getUnit().equals("m/m")) {
             pHeight.setUnit("m");
         }
-        height = pHeight.getAmount();
-        pressureMax = getProperties().get("pressureMax").getAmount();
-        pressureMin = getProperties().get("pressureMin").getAmount();
+        height = (@m double) pHeight.getAmount();
+        pressureMax = (@bar double) getProperties().get("pressureMax").getAmount();
+        pressureMin = (@bar double) getProperties().get("pressureMin").getAmount();
     }
 
     @Override

@@ -7,8 +7,8 @@ package gas.io.anaconda;
 
 import gas.io.XMLProperty;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -16,9 +16,9 @@ import units.UnitsTools;
  */
 public class AnacondaShortPipe extends AnacondaConnection {
 
-    private double flowInit;
+    private @m3PERhr double flowInit;
 
-    public double getFlowInit() {
+    public @m3PERhr double getFlowInit() {
         return flowInit;
     }
     

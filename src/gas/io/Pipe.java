@@ -6,8 +6,8 @@
 
 package gas.io;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -15,8 +15,8 @@ import units.UnitsTools;
  */
 public interface Pipe {
     
-    public double getDiameter();
-    public double getLength();
-    public double getRoughness();
+    public @mm double getDiameter();
+    public @mm double getLength();
+    public @mm double getRoughness();
     
 }

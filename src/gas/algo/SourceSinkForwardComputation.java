@@ -20,6 +20,7 @@ import gas.problem.SourceSinkForwardComputationProblem;
 import java.util.LinkedList;
 import java.util.Queue;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -101,9 +102,8 @@ public class SourceSinkForwardComputation {
 
                         problem.assumeExactPressures();
 
-                        double pd = problem.getInitialPressures().get(sink) - sinkPressures[i] * UnitsTools.bar;
-                        double x = UnitsTools.g_to_kg(pd/(problem.getSpeedOfSound()*problem.getSpeedOfSound())*sink.getVolume());
-                        
+                        double pd = (@bar double) problem.getInitialPressures().get(sink) - sinkPressures[i] * UnitsTools.bar;
+                        @kg double x = UnitsTools.g8_to_kg(pd/(problem.getSpeedOfSound()*problem.getSpeedOfSound())*sink.getVolume());
                         
                         // Output Mass Floe
                         file.addDataPoint(timeSteps[timeStepIndex]*(t+1), x);

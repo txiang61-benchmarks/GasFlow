@@ -7,10 +7,12 @@ package gas.io;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import units.UnitsTools;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+
+import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -18,8 +20,8 @@ import org.w3c.dom.Node;
  */
 public abstract class XMLConnection extends XMLElementWithID {
 
-    protected  double flowMax;
-    protected  double flowMin;
+    protected  @m3PERhr double flowMax;
+    protected  @m3PERhr double flowMin;
     protected  XMLIntersection from;
     protected  volatile String fromId;
     protected  final Map<String, XMLProperty> properties;
@@ -45,11 +47,11 @@ public abstract class XMLConnection extends XMLElementWithID {
         }
     }
 
-    public double getFlowMax() {
+    public @m3PERhr double getFlowMax() {
         return flowMax;
     }
 
-    public double getFlowMin() {
+    public @m3PERhr double getFlowMin() {
         return flowMin;
     }
 

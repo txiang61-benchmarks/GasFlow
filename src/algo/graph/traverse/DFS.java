@@ -37,7 +37,7 @@ import java.util.function.BiFunction;
  *
  * @author Martin Groß
  */
-public class DFS<N,E extends AbstractEdge<N>> {
+public class DFS<N extends Object, E extends AbstractEdge<N>> {
 
     public enum State {
         NORMAL, VISITED, DONE;

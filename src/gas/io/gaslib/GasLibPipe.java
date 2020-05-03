@@ -17,18 +17,18 @@ import units.qual.*;
  */
 public class GasLibPipe extends GasLibConnection implements Pipe {
 
-    private double diameter;
-    private double heatTransferCoefficient;
-    private double length;
-    private double pressureMax;
-    private double roughness;
+    private @mm double diameter;
+    private @WPERm2K double heatTransferCoefficient;
+    private @mm double length;
+    private @bar double pressureMax;
+    private @mm double roughness;
 
     public GasLibPipe() {
         super();
     }
 
     public GasLibPipe(String id, GasLibIntersection start, GasLibIntersection end, String startId, String endId,
-            double length) {
+            @mm double length) {
         super();
         this.id = id;
         from = start;
@@ -42,18 +42,18 @@ public class GasLibPipe extends GasLibConnection implements Pipe {
         pressureMax = 200 * UnitsTools.bar;
     }
 
-    public double computeCrossSection() {
-        return diameter * diameter * (Math.PI / 4);
+    public @m2 double computeCrossSection() {
+        return UnitsTools.mm_to_m(diameter) * UnitsTools.mm_to_m(diameter) * (Math.PI / 4);
     }
 
-    public double computeSiamCoefficient(GasLibNetworkFile networkFile) {
-        double lambda = getLength()*-1.0*computeNikuradseFrictionFactor()*networkFile.getMeanSpecificGasConstant()
+    public @Dimensionless double computeSiamCoefficient(GasLibNetworkFile networkFile) {
+        double lambda = UnitsTools.mm_to_m(getLength())*-1.0*computeNikuradseFrictionFactor()*networkFile.getMeanSpecificGasConstant()
                 *computePapayCompressibilityFactor(networkFile)*networkFile.getMeanTemperature()
-                /computeCrossSection()/computeCrossSection()/getDiameter();
+                /computeCrossSection()/computeCrossSection()/UnitsTools.mm_to_m(getDiameter());
         return lambda;
     }
 
-    public double computeNikuradseFrictionFactor() {
+    public @Dimensionless double computeNikuradseFrictionFactor() {
         double diameterM = diameter;
         double roughnessM = roughness;
         double relativeRoughness = roughnessM / diameterM;
@@ -64,21 +64,21 @@ public class GasLibPipe extends GasLibConnection implements Pipe {
     public @bar double getMeanPressure() {
         double minOfMax = Math.min(getTo().getPressureMax(), getFrom().getPressureMax());
         double maxOfMin = Math.max(getFrom().getPressureMin(), getTo().getPressureMin());
-        return 0.5 * (minOfMax + maxOfMin) * UnitsTools.bar;
+        return 0.5 * (minOfMax + maxOfMin);
     }
 
-    public double computePapayCompressibilityFactor(GasLibNetworkFile constants) {
+    public @Dimensionless double computePapayCompressibilityFactor(GasLibNetworkFile constants) {
         double tr = constants.getMeanReducedTemperature();
         double pr = getMeanPressure()/constants.getMeanPseudocriticalPressure();
         double z = 1 - 3.52 * pr * Math.exp(-2.26 * tr) + 0.247 * pr * pr * Math.exp(-1.878 * tr);
         return z;
     }
 
-    public double computeSlope() {
-        return (getTo().getHeight() - getFrom().getHeight())/getLength();
+    public @Dimensionless double computeSlope() {
+        return (getTo().getHeight() - getFrom().getHeight())/UnitsTools.mm_to_m(getLength());
     }
 
-    public double computeTimelessCoefficient(@mPERs double c) {
+    public @s2PERm2 double computeTimelessCoefficient(@mPERs double c) {
         double crossSection = computeCrossSection();
         // lambda
         double friction = computeNikuradseFrictionFactor();
@@ -94,21 +94,21 @@ public class GasLibPipe extends GasLibConnection implements Pipe {
         return result;
     }
 
-    public double computeStartpointPressure(double c, double start, double flow) {
+    public @bar double computeStartpointPressure(@mPERs double c, @bar double start, @bars3PERm double flow) {
         double beta = computeTimelessCoefficient(c);
         beta = beta * (3600 * UnitsTools.s) * (3600 * UnitsTools.s);
         double pi = start*start;
-        return ((flow*flow/beta) + Math.sqrt(pi));
+        return Math.sqrt(flow*flow/beta + pi);
     }
 
-    public double computeEndpointPressure(double c, double start, double flow) {
+    public @bar double computeEndpointPressure(@mPERs double c, @bar double start, @bars3PERm double flow) {
         double beta = computeTimelessCoefficient(c);
         beta = beta * (3600 * UnitsTools.s) * (3600 * UnitsTools.s);
         double pi = start*start;
-        return ((flow*flow/beta) - Math.sqrt(pi));
+        return Math.sqrt(flow*flow/beta - pi);
     }
 
-    public double computeMassFlow(double start, double end, double duration) {
+    public double computeMassFlow(@bar double start, @bar double end, @s double duration) {
         return 0;
     }
 
@@ -116,27 +116,27 @@ public class GasLibPipe extends GasLibConnection implements Pipe {
         return 0;
     }
 
-    public double getDiameter() {
+    public @mm double getDiameter() {
         return diameter;
     }
 
-    public double getHeatTransferCoefficient() {
+    public @WPERm2K double getHeatTransferCoefficient() {
         return heatTransferCoefficient;
     }
 
-    public double getLength() {
+    public @mm double getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(@mm double length) {
         this.length = length;
     }
 
-    public double getPressureMax() {
+    public @bar double getPressureMax() {
         return pressureMax;
     }
 
-    public double getRoughness() {
+    public @mm double getRoughness() {
         return roughness;
     }
 
@@ -148,7 +148,7 @@ public class GasLibPipe extends GasLibConnection implements Pipe {
     @Override
     protected void parseProperties() {
         super.parseProperties();
-        diameter = getProperties().get("diameter").getAmount();
+        diameter = (@mm double) getProperties().get("diameter").getAmount();
         XMLProperty pHeatTransferCoefficient = getProperties().get("heatTransferCoefficient");
         if (pHeatTransferCoefficient.getUnit().equals("W_per_m_square_per_K")
                 || pHeatTransferCoefficient.getUnit().equals("m/m")) {
@@ -156,14 +156,14 @@ public class GasLibPipe extends GasLibConnection implements Pipe {
         } else {
             throw new AssertionError("Heat transfer coefficient unit unknown: " + pHeatTransferCoefficient.getUnit());
         }
-        heatTransferCoefficient = pHeatTransferCoefficient.getAmount();
-        length = getProperties().get("length").getAmount();
+        heatTransferCoefficient = (@WPERm2K double) pHeatTransferCoefficient.getAmount();
+        length = (@mm double) getProperties().get("pressure").getAmount();
         if (getProperties().containsKey("pressureMax")) {
-            pressureMax = getProperties().get("pressureMax").getAmount();
+            pressureMax = (@bar double) getProperties().get("pressureMax").getAmount();
         } else {
-            pressureMax = 0;
+            pressureMax = (@bar int) 0;
         }
-        roughness = getProperties().get("roughness").getAmount();
+        roughness = (@mm double) getProperties().get("roughness").getAmount();
     }
 
     public void createProperties() {

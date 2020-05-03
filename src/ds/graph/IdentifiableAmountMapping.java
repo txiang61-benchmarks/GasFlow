@@ -21,6 +21,7 @@ package ds.graph;
 
 import java.util.Arrays;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  * The <code>IdentifiableIntegerMapping</code> class represents a mapping from a
@@ -42,7 +43,7 @@ public class IdentifiableAmountMapping<D extends Identifiable, Q extends Number>
     /**
      * The array storing all associations. Must not be <code>null</code>.
      */
-    protected double[] mapping;
+    protected @UnknownUnits double[] mapping;
 
     protected IdentifiableAmountMapping() {
     }
@@ -70,7 +71,7 @@ public class IdentifiableAmountMapping<D extends Identifiable, Q extends Number>
      * @param mapping the array defining the initial mapping.
      * @exception NullPointerException if <code>mapping</code> is null.
      */
-    protected IdentifiableAmountMapping(double[] mapping) {
+    protected IdentifiableAmountMapping(@UnknownUnits double[] mapping) {
         this.mapping = mapping;
     }
 
@@ -110,7 +111,7 @@ public class IdentifiableAmountMapping<D extends Identifiable, Q extends Number>
      * @see #setDomainSize
      * @see Identifiable
      */
-    public double get(D identifiableObject) {
+    public @UnknownUnits double get(D identifiableObject) {
         return mapping[identifiableObject.id()];
     }
 
@@ -135,7 +136,7 @@ public class IdentifiableAmountMapping<D extends Identifiable, Q extends Number>
      * @see #setDomainSize
      * @see Identifiable
      */
-    public void set(D identifiableObject, double value) {
+    public void set(D identifiableObject, @UnknownUnits double value) {
         if (identifiableObject == null) {
             throw new RuntimeException("IdentifiableObject contains null, value contains " + value + ".");
         }
@@ -348,7 +349,7 @@ public class IdentifiableAmountMapping<D extends Identifiable, Q extends Number>
         for (int i = 0; i < mapping.length; i++) {
             sum += mapping[i];
         }
-        return sum;
+        return (@Dimensionless int) sum;
     }
 
     /**

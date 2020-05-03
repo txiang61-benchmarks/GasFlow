@@ -7,8 +7,8 @@ package gas.io.anaconda;
 
 import gas.io.XMLProperty;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -16,14 +16,14 @@ import units.UnitsTools;
  */
 public abstract class AnacondaTerminalNode extends AnacondaIntersection {
 
-    private double flowMax;
-    private double flowMin;
+    private @m3PERhr double flowMax;
+    private @m3PERhr double flowMin;
 
-    public double getFlowMax() {
+    public @m3PERhr double getFlowMax() {
         return flowMax;
     }
 
-    public double getFlowMin() {
+    public @m3PERhr double getFlowMin() {
         return flowMin;
     }
     

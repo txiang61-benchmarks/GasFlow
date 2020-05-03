@@ -35,10 +35,10 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
     
     public static final boolean DEBUG = false;
 
-    private double meanMolarMass;
-    private double meanTemperature;
-    private double meanPseudocriticalPressure;
-    private double meanPseudocriticalTemperature;
+    private @gPERmol double meanMolarMass;
+    private @K double meanTemperature;
+    private @bar double meanPseudocriticalPressure;
+    private @K double meanPseudocriticalTemperature;
     private int numberOfSources = -1;
     private int numberOfSinks = -1;
 
@@ -50,10 +50,10 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
     }
 
     public @K double getMeanTemperature() {
-        if (meanTemperature == 0) {
+        if (meanTemperature == (@K int) 0) {
             GraphConversion<GasLibIntersection, GasLibConnection> conversion = getDynamicNetwork();
             Map<GasNode, GasLibIntersection> nodeIntersections = (Map) conversion.getNodeIntersections();
-            double sum = 0.0;
+            double sum = (@K int) 0.0;
             int count = 0;
             for (GasLibIntersection i : nodeIntersections.values()) {
                 if (i instanceof GasLibSource) {
@@ -61,7 +61,7 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
                     ++count;
                 }
             }
-            meanTemperature = sum / count * UnitsTools.K;
+            meanTemperature = sum / count;
         }
         return meanTemperature;
     }
@@ -71,10 +71,10 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
     }
 
     public @bar double getMeanPseudocriticalPressure() {
-        if (meanPseudocriticalPressure == 0) {
+        if (meanPseudocriticalPressure == (@bar int) 0) {
             GraphConversion<GasLibIntersection, GasLibConnection> conversion = getDynamicNetwork();
             Map<GasNode, GasLibIntersection> nodeIntersections = (Map) conversion.getNodeIntersections();
-            double sum = 0.0;
+            double sum = (@bar int) 0.0;
             int count = 0;
             for (GasLibIntersection i : nodeIntersections.values()) {
                 if (i instanceof GasLibSource) {
@@ -82,16 +82,16 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
                     ++count;
                 }
             }
-            meanPseudocriticalPressure = sum / count * UnitsTools.bar;
+            meanPseudocriticalPressure = sum / count;
         }
         return meanPseudocriticalPressure;
     }
 
     public @K double getMeanPseudocriticalTemperature() {
-        if (meanPseudocriticalTemperature == 0) {
+        if (meanPseudocriticalTemperature == (@K int) 0) {
             GraphConversion<GasLibIntersection, GasLibConnection> conversion = getDynamicNetwork();
             Map<GasNode, GasLibIntersection> nodeIntersections = (Map) conversion.getNodeIntersections();
-            double sum = 0.0;
+            double sum = (@K int) 0.0;
             int count = 0;
             for (GasLibIntersection i : nodeIntersections.values()) {
                 if (i instanceof GasLibSource) {
@@ -99,16 +99,16 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
                     ++count;
                 }
             }
-            meanPseudocriticalTemperature = sum / count * UnitsTools.K;
+            meanPseudocriticalTemperature = sum / count;
         }
         return meanPseudocriticalTemperature;
     }
 
     public @gPERmol double getMeanMolarMass() {
-        if (meanMolarMass == 0) {
+        if (meanMolarMass == (@gPERmol int ) 0) {
             GraphConversion<GasLibIntersection, GasLibConnection> conversion = getDynamicNetwork();
             Map<GasNode, GasLibIntersection> nodeIntersections = (Map) conversion.getNodeIntersections();
-            double sum = 0.0;
+            double sum = (@gPERmol int) 0.0;
             int count = 0;
             for (GasLibIntersection i : nodeIntersections.values()) {
                 if (i instanceof GasLibSource) {
@@ -116,13 +116,13 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
                     ++count;
                 }
             }
-            meanMolarMass = sum / count * UnitsTools.g/UnitsTools.mol;
+            meanMolarMass = sum / count;
         }
         return meanMolarMass;
     }
 
-    public double getMeanSpecificGasConstant() {
-        return UnitsTools.R/getMeanMolarMass();
+    public @m2PERs2K double getMeanSpecificGasConstant() {
+        return UnitsTools.R/UnitsTools.gPERmol_to_kgPERmol(getMeanMolarMass());
     }
 
     public int getNumberOfSources() {
@@ -220,7 +220,7 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
 
     int index = 0;
 
-    public GasLibConnection addEdgeAndConnection(GasEdge edge, double beta) {
+    public GasLibConnection addEdgeAndConnection(GasEdge edge, @PERm2s2 double beta) {
         
         GasNode start = edge.start();
         GasLibIntersection startI = conversion.getNodeIntersections().get(start);
@@ -231,32 +231,31 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
         
         double minOfMax = Math.min(startI.getPressureMax(), endI.getPressureMax());
         double maxOfMin = Math.max(startI.getPressureMin(), endI.getPressureMin());
-        double meanPressure = 0.5 * (minOfMax + maxOfMin) * UnitsTools.bar;
+        double meanPressure = 0.5 * (minOfMax + maxOfMin);
 
         double tr = getMeanReducedTemperature();
         double pr = meanPressure/getMeanPseudocriticalPressure();
         double z = 1 - 3.52 * pr * Math.exp(-2.26 * tr) + 0.247 * pr * pr * Math.exp(-1.878 * tr);
 
-        double diameter = 500 * UnitsTools.mm;
+        double diameter = UnitsTools.mm_to_m(500 * UnitsTools.mm);
         double area = (diameter/2)*(diameter/2)*Math.PI;
 
-        double length = beta*-1.0*diameter*area*area
+        @m double length = beta*-1.0*diameter*area*area
                 /getMeanSpecificGasConstant()/getMeanTemperature()/z/(1.0 / 83.50344);
 
-        if (UnitsTools.mm_to_m(length) < 0.0) {
+        if (length < (@m double) 0.0) {
             if (true) System.err.println("Negative Length: ");
             if (true) System.out.println(length + " " + beta + " " + diameter + " " + area + " " + getMeanSpecificGasConstant() + " " + getMeanTemperature() + " " + z);
-        } else if (UnitsTools.mm_to_m(length) == 0.0) {
+        } else if (length == (@m double) 0.0) {
             if (DEBUG) System.err.println("Zero Length: ");
             if (DEBUG) System.out.println(length + " " + beta + " " + diameter + " " + area + " " + getMeanSpecificGasConstant() + " " + getMeanTemperature() + " " + z);
-            length = 0.01 * UnitsTools.mm;
+            length = UnitsTools.mm_to_m(0.01 * UnitsTools.mm);
         } else {
             if (DEBUG) System.out.println("Positive Length: ");
             if (DEBUG) System.out.println(length + " " + beta + " " + diameter + " " + area + " " + getMeanSpecificGasConstant() + " " + getMeanTemperature() + " " + z);
         }
         
-        
-        GasLibPipe c = new GasLibPipe("newpipe_" + (++index), startI, endI, startIId, endIId, length);
+        GasLibPipe c = new GasLibPipe("newpipe_" + (++index), startI, endI, startIId, endIId, UnitsTools.m_to_mm(length));
         c.createProperties();
 
         startI.getConnections().add(c);
@@ -264,7 +263,6 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
 
         connections.getMap().put(c.getId(), c);
         if (DEBUG) System.out.println("GLNF: Connection added " + c.getId() + " from " + c.getFrom().getId() + " to " + c.getTo().getId() + " (Edge: " + edge + ")");
-        //System.out.println(connections.getMap().get(c.getId()));
         return c;
     }
     
@@ -289,7 +287,7 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
         return true;
     }
 
-    public void updateEdgeConnection(GasEdge edge, double beta) {
+    public void updateEdgeConnection(GasEdge edge, @PERm2s2 double beta) {
         GasLibPipe edgeC = (GasLibPipe) conversion.getConnection(edge);
 
         double meanPressure = edgeC.getMeanPressure();
@@ -298,13 +296,13 @@ public class GasLibNetworkFile extends XMLNetworkFile<GasLibConnection, GasLibIn
         double pr = meanPressure/getMeanPseudocriticalPressure();
         double z = 1 - 3.52 * pr * Math.exp(-2.26 * tr) + 0.247 * pr * pr * Math.exp(-1.878 * tr);
 
-        double diameter = edgeC.getDiameter();
+        double diameter = UnitsTools.mm_to_m(edgeC.getDiameter());
         double area = (diameter/2)*(diameter/2)*Math.PI;
 
         double length = beta*-1.0*diameter*area*area
                 /getMeanSpecificGasConstant()/getMeanTemperature()/z/(1.0 / 83.50344);
 
-        edgeC.setLength(length);
+        edgeC.setLength(UnitsTools.m_to_mm(length));
 
         if (DEBUG) System.out.println("GLNF: Connection updated");
     }

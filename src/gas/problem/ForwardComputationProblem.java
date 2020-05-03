@@ -24,8 +24,8 @@ public class ForwardComputationProblem {
     private Graph<Node, Edge> network;
     private IdentifiableAmountMapping<Edge, Double> edgeConstants;
     private IdentifiableAmountMapping<Node, Double> pressures;
-    private double speedOfSound;
-    private double timeStep;
+    private @mPERs double speedOfSound;
+    private @s double timeStep;
     private IdentifiableAmountMapping<Node, Double> volumes;
 
     public ForwardComputationProblem() {
@@ -57,15 +57,15 @@ public class ForwardComputationProblem {
         return speedOfSound;
     }
 
-    public void setSpeedOfSound(double speedOfSound) {
+    public void setSpeedOfSound(@mPERs double speedOfSound) {
         this.speedOfSound = speedOfSound;
     }
 
-    public double getTimeStep() {
+    public @s double getTimeStep() {
         return timeStep;
     }
 
-    public void setTimeStep(double timeStep) {
+    public void setTimeStep(@s double timeStep) {
         this.timeStep = timeStep;
     }
 

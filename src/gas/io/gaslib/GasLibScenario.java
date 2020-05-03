@@ -19,6 +19,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -62,11 +63,11 @@ public class GasLibScenario extends XMLElementWithID {
         }
     }
 
-    public double getLowerPressureBound(XMLIntersection i) {
+    public @bar double getLowerPressureBound(XMLIntersection i) {
         return scenarioNodes.get(i.getId()).getLowerPressureBound();
     }
 
-    public double getUpperPressureBound(XMLIntersection i) {
+    public @bar double getUpperPressureBound(XMLIntersection i) {
         return scenarioNodes.get(i.getId()).getLowerPressureBound();
     }
 
@@ -79,7 +80,7 @@ public class GasLibScenario extends XMLElementWithID {
         return scenarioNodes.get(i.getId());
     }
 
-    public double getBalance(XMLIntersection i) {
+    public @m3PERhr double getBalance(XMLIntersection i) {
         GasLibScenarioNode n = scenarioNodes.get(i.getId());
         if (n == null) {
             return 0 * UnitsTools.m3/UnitsTools.hr;
@@ -179,7 +180,7 @@ public class GasLibScenario extends XMLElementWithID {
         return true;
     }
 
-    public double getLowerFlowRateBound(GasLibIntersection i) {
+    public @m3PERhr double getLowerFlowRateBound(GasLibIntersection i) {
         if (scenarioNodes.get(i.getId()) == null) {
             return 0 * UnitsTools.m3/UnitsTools.hr;
         }
@@ -191,7 +192,7 @@ public class GasLibScenario extends XMLElementWithID {
 
     }
 
-    public double getUpperFlowRateBound(GasLibIntersection i) {
+    public @m3PERhr double getUpperFlowRateBound(GasLibIntersection i) {
         if (scenarioNodes.get(i.getId()) == null) {
             return 0 * UnitsTools.m3/UnitsTools.hr;
         }

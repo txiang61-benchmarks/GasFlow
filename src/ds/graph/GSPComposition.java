@@ -12,7 +12,7 @@ import ds.graph.AbstractEdge;
  *
  * @author Martin
  */
-public class GSPComposition<N, E extends AbstractEdge<N>> {
+public class GSPComposition<N extends Object, E extends AbstractEdge<N>> {
     
     private final GSPG<N, E> graph1;
     private final GSPG<N, E> graph2;

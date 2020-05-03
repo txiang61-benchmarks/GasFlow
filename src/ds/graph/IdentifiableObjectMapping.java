@@ -20,6 +20,7 @@
 package ds.graph;
 
 import java.lang.reflect.Array;
+import units.qual.*;
 
 /**
  * The <code>IdentifiableObjectMapping</code> class represents a mapping from a
@@ -38,7 +39,7 @@ import java.lang.reflect.Array;
  * @param R the type of this mapping's range, i.e. the type of the values the
  * objects can be mapped to.
  */
-public class IdentifiableObjectMapping<D extends Identifiable, R> implements Cloneable {
+public class IdentifiableObjectMapping<D extends Identifiable, R extends Object> implements Cloneable {
 
     /**
      * The type of the elements stored in the <code>mapping</code> array. Since

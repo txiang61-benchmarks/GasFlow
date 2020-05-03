@@ -21,6 +21,7 @@ package ds.graph;
 
 import java.lang.reflect.Array;
 import java.util.Iterator;
+import units.qual.*;
 
 /**
  * The {@code ArraySet} class represents a set of
@@ -356,7 +357,7 @@ public class ArraySet<E extends Identifiable> implements IdentifiableCollection<
 	 */
 	@Override
 	@SuppressWarnings( "unchecked" )
-	public boolean equals( Object o ) {
+	public boolean equals(Object o ) {
 		boolean equal;
 		if( o == null || !(o instanceof ArraySet) )
 			equal = false;

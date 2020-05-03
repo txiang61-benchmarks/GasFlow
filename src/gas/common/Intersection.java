@@ -7,8 +7,8 @@ package gas.common;
 
 import java.util.List;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -19,13 +19,13 @@ public interface Intersection<C extends Connection> {
 
     List<C> getConnections();
 
-    double getHeight();
+    @m double getHeight();
 
     String getId();
 
-    double getPressureMax();
+    @bar double getPressureMax();
 
-    double getPressureMin();
+    @bar double getPressureMin();
 
     double getX();
 

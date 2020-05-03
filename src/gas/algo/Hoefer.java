@@ -11,6 +11,7 @@ import gas.io.gaslib.GasLibPipe;
 import gas.io.gaslib.GasLibScenario;
 import gas.io.gaslib.GasLibScenarioFile;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -32,14 +33,14 @@ public class Hoefer {
         52, 36.24712558, 12.62839927, 0, 36.472, 27.352, 7.634
     };
 
-    private static final double c = 351.521085 * UnitsTools.m/UnitsTools.s;
-    private static final double pMinEntry1 = 60.0 * UnitsTools.bar;
-    private static final double pMaxEntry1 = 64.0 * UnitsTools.bar;
-    private static final double pMinExit1 = 59.98 * UnitsTools.bar;
-    private static final double pMaxExit1 = 59.992 * UnitsTools.bar;
-    private static final double pMinExit2 = 59.96 * UnitsTools.bar;
-    private static final double pMaxExit2 = 59.999 * UnitsTools.bar;
-    private static final double f1 = flow1[index] * 820 * UnitsTools.kg;
-    private static final double f2 = flow2[index] * 820 * UnitsTools.kg;
-    private static final double f3 = flow3[index] * 820 * UnitsTools.kg;
+    private static final @mPERs double c = 351.521085 * UnitsTools.m/UnitsTools.s;
+    private static final @bar double pMinEntry1 = 60.0 * UnitsTools.bar;
+    private static final @bar double pMaxEntry1 = 64.0 * UnitsTools.bar;
+    private static final @bar double pMinExit1 = 59.98 * UnitsTools.bar;
+    private static final @bar double pMaxExit1 = 59.992 * UnitsTools.bar;
+    private static final @bar double pMinExit2 = 59.96 * UnitsTools.bar;
+    private static final @bar double pMaxExit2 = 59.999 * UnitsTools.bar;
+    private static final @kg double f1 = flow1[index] * 820 * UnitsTools.kg;
+    private static final @kg double f2 = flow2[index] * 820 * UnitsTools.kg;
+    private static final @kg double f3 = flow3[index] * 820 * UnitsTools.kg;
 }

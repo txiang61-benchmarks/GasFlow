@@ -140,9 +140,9 @@ public abstract class XMLNetworkFile<C extends XMLConnection,I extends XMLInters
             edge.setFlowMax(connection.getFlowMax());
             edge.setFlowMin(connection.getFlowMin());
             if (connection instanceof Pipe) {
-                edge.setDiameter(((Pipe) connection).getDiameter());
-                edge.setLength(((Pipe) connection).getLength());
-                edge.setRoughness(((Pipe) connection).getRoughness());
+                edge.setDiameter(UnitsTools.mm_to_m(((Pipe) connection).getDiameter()));
+                edge.setLength(UnitsTools.mm_to_m(((Pipe) connection).getLength()));
+                edge.setRoughness(UnitsTools.mm_to_m(((Pipe) connection).getRoughness()));
             }
             network.addEdge(edge);
             edgeConnections.put(edge, connection);

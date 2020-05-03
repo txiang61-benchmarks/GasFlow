@@ -6,6 +6,7 @@
 package gas.quantity;
 
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -13,6 +14,6 @@ import units.UnitsTools;
  */
 public interface MolarMass {
 
-    public static final double UNIT = UnitsTools.g/UnitsTools.mol;
+    public static final @gPERmol double UNIT = UnitsTools.g/UnitsTools.mol;
     
 }

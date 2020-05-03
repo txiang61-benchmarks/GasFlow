@@ -23,6 +23,7 @@ package ds.graph;
 import java.util.LinkedList;
 
 import java.util.List;
+import units.qual.*;
 
 /**
  * The class <code>TimeExpandedNetwork</code> provides flow algorithms with the

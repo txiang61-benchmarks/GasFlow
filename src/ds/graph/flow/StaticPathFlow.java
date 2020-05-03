@@ -24,8 +24,8 @@ import ds.graph.Edge;
 import ds.graph.IdentifiableCollection;
 import ds.graph.StaticPath;
 import java.util.Iterator;
-
 import ds.graph.Localization;
+import units.qual.*;
 
 /**
  * The <code>@link StaticPathFlow</code> class represents the static flow 

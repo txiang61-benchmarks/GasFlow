@@ -24,7 +24,7 @@ import java.util.Map;
  *
  * @author Martin Groß
  */
-public class MinHeap<O, P extends Number> {
+public class MinHeap<O extends Object, P extends Number> {
 
     private List<Element> elements;
     private Map<O, Integer> objectToIndex;
