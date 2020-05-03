@@ -5,6 +5,7 @@
 package gas.io;
 
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -12,28 +13,28 @@ import units.UnitsTools;
  */
 public class XMLProperty extends XMLElement {
 
-    private Double amount;
+    private @UnknownUnits double amount;
     private String name;
     private String unit;
     private String value;
 
     public XMLProperty() {
-        amount = null;
+        amount = 0;
         name = "";
         unit = "m/m";
         value = "";
     }
 
     public XMLProperty(String name, String unit, String value) {
-        amount = null;
+        amount = 0;
         this.name = name;
         this.unit = unit;
         this.value = value;
     }
 
-    public double getAmount() {
-        if (amount != null) {
-            return amount.doubleValue();
+    public @UnknownUnits double getAmount() {
+        if (amount != 0) {
+            return amount;
         } else {
             switch (unit) {
                 case "bar":
@@ -60,7 +61,7 @@ public class XMLProperty extends XMLElement {
                         return 0;
                     }
             }
-            return amount.doubleValue();
+            return amount;
         }
     }
 
@@ -78,7 +79,7 @@ public class XMLProperty extends XMLElement {
 
     public void setUnit(String unit) {
         this.unit = unit;
-        amount = null;
+        amount = 0;
     }
 
     public String getValue() {
@@ -87,13 +88,13 @@ public class XMLProperty extends XMLElement {
 
     public void setValue(String value) {
         this.value = value;
-        amount = null;
+        amount = 0;
     }
 
     @Override
     protected boolean parseAttribute(String name, String value) {
         if (!super.parseAttribute(name, value)) {
-            amount = null;
+            amount = 0;
             switch (name) {
                 case "unit":
                     unit = value;

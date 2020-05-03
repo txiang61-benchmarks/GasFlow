@@ -20,6 +20,9 @@
 
 package ds.graph;
 
+import units.qual.*;
+
+
 /**
  * The <code>Node</code> class represents a node in a graph. A node is 
  * identifiable, e.g. the class implements the Interface 

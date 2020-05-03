@@ -22,6 +22,8 @@ package ds.graph;
 
 import ds.graph.IntegerIntegerArrayMapping.TimeIntegerPair;
 import java.util.Arrays;
+import units.qual.*;
+
 
 /**
  * The <code>IntegerIntegerMapping</code> class represents a mapping from 

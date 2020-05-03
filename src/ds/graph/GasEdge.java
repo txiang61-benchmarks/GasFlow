@@ -7,6 +7,7 @@ package ds.graph;
 
 import static java.lang.Math.PI;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -14,12 +15,12 @@ import units.UnitsTools;
  */
 public class GasEdge extends AbstractEdge<GasNode> implements Identifiable {
 
-    private double diameter;
-    private double flowMax;
-    private double flowMin;
+    private @m double diameter;
+    private @m3PERhr double flowMax;
+    private @m3PERhr double flowMin;
     private int id;
-    private double length;
-    private double roughness;
+    private @m double length;
+    private @m double roughness;
 
     public GasEdge(GasNode start, GasNode end) {
         this(start, end, -1);
@@ -33,7 +34,7 @@ public class GasEdge extends AbstractEdge<GasNode> implements Identifiable {
         this.roughness = 0 * UnitsTools.m;
     }
 
-    public GasEdge(GasNode start, GasNode end, int id, double diameter, double length, double roughness) {
+    public GasEdge(GasNode start, GasNode end, int id, @m double diameter, @m double length, @m double roughness) {
         this(start, end, id);
         this.diameter = diameter;
         this.length = length;
@@ -53,51 +54,51 @@ public class GasEdge extends AbstractEdge<GasNode> implements Identifiable {
         this.id = id;
     }
 
-    public double getDiameter() {
+    public @m double getDiameter() {
         return diameter;
     }
 
-    public void setDiameter(double diameter) {
+    public void setDiameter(@m double diameter) {
         this.diameter = diameter;
     }
 
-    public double getFlowMax() {
+    public @m3PERhr double getFlowMax() {
         return flowMax;
     }
 
-    public void setFlowMax(double flowMax) {
+    public void setFlowMax(@m3PERhr double flowMax) {
         this.flowMax = flowMax;
     }
 
-    public double getFlowMin() {
+    public @m3PERhr double getFlowMin() {
         return flowMin;
     }
 
-    public void setFlowMin(double flowMin) {
+    public void setFlowMin(@m3PERhr double flowMin) {
         this.flowMin = flowMin;
     }
 
-    public double getLength() {
+    public @m double getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(@m double length) {
         this.length = length;
     }
 
-    public double getSlope() {
+    public @Dimensionless double getSlope() {
         return (end().getHeight() - start().getHeight())/length;
     }
     
-    public double getRoughness() {
+    public @m double getRoughness() {
         return roughness;
     }
 
-    public void setRoughness(double roughness) {
+    public void setRoughness(@m double roughness) {
         this.roughness = roughness;
     }
     
-    public double getHalfVolume() {
+    public @m3 double getHalfVolume() {
         return diameter*diameter*(PI / 8.0)*length;
     }
 

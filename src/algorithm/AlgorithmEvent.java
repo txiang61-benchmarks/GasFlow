@@ -4,6 +4,7 @@
  */
 package algorithm;
 
+import units.qual.*;
 
 /**
  * The abstract base class for algorithm events. It records the algorithm the
@@ -22,7 +23,7 @@ public abstract class AlgorithmEvent {
    * The time at which the event occurred in milliseconds elapsed since
    * midnight, January 1, 1970 UTC.
    */
-  private long eventTime;
+  private @ms long eventTime;
 
   /**
    * A protected constructor for subclasses to initialize the basic fields of
@@ -32,7 +33,7 @@ public abstract class AlgorithmEvent {
    * @param eventTime the time at which the event occurred in milliseconds
    * elapsed since midnight, January 1, 1970 UTC.
    */
-  protected AlgorithmEvent( Algorithm<?, ?> algorithm, long eventTime ) {
+  protected AlgorithmEvent( Algorithm<?, ?> algorithm, @ms long eventTime ) {
     this.algorithm = algorithm;
     this.eventTime = eventTime;
   }
@@ -52,7 +53,7 @@ public abstract class AlgorithmEvent {
    *
    * @return the time at which the event occurred.
    */
-  public final long getEventTime() {
+  public final @ms long getEventTime() {
     return eventTime;
   }
 

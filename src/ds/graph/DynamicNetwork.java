@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.function.BiFunction;
 
-public class DynamicNetwork<N, E extends AbstractEdge<N>> implements Graph<N, E> {
+public class DynamicNetwork<N extends Object, E extends AbstractEdge<N>> implements Graph<N, E> {
 
     //final Logger LOGGER;
     protected Collection<N> nodes;

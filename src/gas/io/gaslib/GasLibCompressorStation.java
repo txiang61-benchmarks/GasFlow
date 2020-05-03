@@ -7,11 +7,10 @@ package gas.io.gaslib;
 
 import gas.io.XMLIntersection;
 import java.util.Map;
-
-
+import org.w3c.dom.Element;
 
 import units.UnitsTools;
-import org.w3c.dom.Element;
+import units.qual.*;
 
 /**
  *
@@ -19,30 +18,30 @@ import org.w3c.dom.Element;
  */
 public class GasLibCompressorStation extends GasLibConnection {
     
-    private double diameterIn;
-    private double diameterOut;
-    private double dragFactorIn;
-    private double dragFactorOut;
+    private @m double diameterIn;
+    private @m double diameterOut;
+    private @Dimensionless double dragFactorIn;
+    private @Dimensionless double dragFactorOut;
     private XMLIntersection fuelGasVertex;
     private String fuelGasVertexId;
     private boolean gasCoolerExisting;
     private boolean internalBypassRequired;
-    private double pressureInMin;
-    private double pressureOutMax;
+    private @bar double pressureInMin;
+    private @bar double pressureOutMax;
 
-    public double getDiameterIn() {
+    public @m double getDiameterIn() {
         return diameterIn;
     }
 
-    public double getDiameterOut() {
+    public @m double getDiameterOut() {
         return diameterOut;
     }
 
-    public double getDragFactorIn() {
+    public @Dimensionless double getDragFactorIn() {
         return dragFactorIn;
     }
 
-    public double getDragFactorOut() {
+    public @Dimensionless double getDragFactorOut() {
         return dragFactorOut;
     }
 
@@ -58,11 +57,11 @@ public class GasLibCompressorStation extends GasLibConnection {
         return internalBypassRequired;
     }
 
-    public double getPressureInMin() {
+    public @bar double getPressureInMin() {
         return pressureInMin;
     }
 
-    public double getPressureOutMax() {
+    public @bar double getPressureOutMax() {
         return pressureOutMax;
     }
 
@@ -110,18 +109,18 @@ public class GasLibCompressorStation extends GasLibConnection {
     protected void parseProperties() {
         super.parseProperties();
         if (getProperties().containsKey("diameterIn")) {
-            diameterIn = getProperties().get("diameterIn").getAmount();
+            diameterIn = (@m double) getProperties().get("diameterIn").getAmount();
         }
         if (getProperties().containsKey("diameterOut")) {
-            diameterOut = getProperties().get("diameterOut").getAmount();
+            diameterOut = (@m double) getProperties().get("diameterOut").getAmount();
         }
         if (getProperties().containsKey("dragFactorIn")) {
-            dragFactorIn = getProperties().get("dragFactorIn").getAmount();
+            dragFactorIn = (@Dimensionless double) getProperties().get("dragFactorIn").getAmount();
         }
         if (getProperties().containsKey("dragFactorOut")) {
-            dragFactorOut = getProperties().get("dragFactorOut").getAmount();
+            dragFactorOut = (@Dimensionless double) getProperties().get("dragFactorOut").getAmount();
         }
-        pressureInMin = getProperties().get("pressureInMin").getAmount();
-        pressureOutMax = getProperties().get("pressureOutMax").getAmount();
+        pressureInMin = (@bar double) getProperties().get("pressureInMin").getAmount();
+        pressureOutMax = (@bar double) getProperties().get("pressureOutMax").getAmount();
     }
 }

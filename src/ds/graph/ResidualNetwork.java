@@ -20,6 +20,7 @@
 package ds.graph;
 
 import ds.graph.flow.Flow;
+import units.qual.*;
 
 /**
  * The <code>ResidualNetwork</code> class provides flow algorithms with the 

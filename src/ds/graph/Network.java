@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import units.qual.*;
+
 /**
  * The <code>Network</class> provides an implementation of a directed graph
  * optimized for use by flow algorithms. Examples of these optimizations include
@@ -114,7 +116,7 @@ public class Network implements IdentifiableGraph, Cloneable, Graph<Node, Edge>,
         outdegree = new IdentifiableIntegerMapping<>(initialNodeCapacity);
     }
 
-    public static <N2, E2 extends AbstractEdge<N2>, G2 extends Graph<N2, E2>> GraphToGraphMapping<N2, E2, G2, Node, Edge, Network> createFromGraph(G2 graph) {
+    public static <N2 extends Object, E2 extends AbstractEdge<N2>, G2 extends Graph<N2, E2>> GraphToGraphMapping<N2, E2, G2, Node, Edge, Network> createFromGraph(G2 graph) {
         Network network = new Network(graph.numberOfNodes(), graph.numberOfEdges());
         Map<E2, Edge> edgeMap = new HashMap<>();
         Map<N2, Node> nodeMap = new HashMap<>();

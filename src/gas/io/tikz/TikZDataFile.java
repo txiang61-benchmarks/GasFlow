@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import units.qual.*;
+
 /**
  *
  * @author Martin
@@ -25,7 +27,7 @@ public class TikZDataFile {
 
     private String xLabel;
     private String yLabel;
-    private List<double[]> data;
+    private List<@UnknownUnits double[]> data;
     
     public TikZDataFile(String xLabel, String yLabel) {
         this.xLabel = xLabel;
@@ -33,7 +35,7 @@ public class TikZDataFile {
         data = new LinkedList<>();
     }   
     
-    public void addDataPoint(double... x) {
+    public void addDataPoint(@UnknownUnits double... x) {
         data.add(x);
     }
     
@@ -41,7 +43,7 @@ public class TikZDataFile {
         try {
             PrintStream out = new PrintStream(new FileOutputStream(filename));
             //out.printf("%1$s, %2$s\n", xLabel, yLabel);
-            for (double[] point : data) {
+            for (@UnknownUnits double[] point : data) {
                 for (int i = 0; i < point.length; i++) {
                     out.print(point[i]);
                     if (i < point.length - 1) {

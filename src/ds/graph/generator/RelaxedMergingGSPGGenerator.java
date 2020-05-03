@@ -33,7 +33,7 @@ import org.apache.commons.math3.random.RandomGenerator;
  * @param <N> the node class of the generated graph.
  * @param <E> the edge class of the generated graph.
  */
-public class RelaxedMergingGSPGGenerator<N, E extends AbstractEdge<N>> extends MergingGSPGGenerator<N, E> {
+public class RelaxedMergingGSPGGenerator<N extends Object, E extends AbstractEdge<N>> extends MergingGSPGGenerator<N, E> {
 
     /**
      * The logger for this class.

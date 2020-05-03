@@ -5,8 +5,8 @@
  */
 package gas.quantity;
 
-
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -14,6 +14,6 @@ import units.UnitsTools;
  */
 public interface EdgeConstant {
 
-    public static final double UNIT = UnitsTools.s*UnitsTools.s*UnitsTools.m2;
+    public static final @m2s2 int UNIT = UnitsTools.s*UnitsTools.s*UnitsTools.m2;
 
 }

@@ -92,10 +92,10 @@ public class GasLibScenarioNode extends XMLElementWithID {
 
     public @m3PERhr double getFlowRateBound() {
         if (properties.get("flow_BOTH") != null) {
-            return properties.get("flow_BOTH").getAmount();
+            return (@m3PERhr double) properties.get("flow_BOTH").getAmount();
         } else if (properties.get("flow_LOWER") != null && properties.get("flow_UPPER") != null) {
             if (properties.get("flow_LOWER").getAmount() == properties.get("flow_UPPER").getAmount()) {
-                return properties.get("flow_LOWER").getAmount();
+                return (@m3PERhr double) properties.get("flow_LOWER").getAmount();
             }
         }
         throw new AssertionError("");
@@ -103,9 +103,9 @@ public class GasLibScenarioNode extends XMLElementWithID {
 
     public @m3PERhr double getLowerFlowRateBound() {
         if (properties.get("flow_LOWER") != null) {
-            return properties.get("flow_LOWER").getAmount();
+            return (@m3PERhr double) properties.get("flow_LOWER").getAmount();
         } else if (properties.get("flow_BOTH") != null) {
-            return properties.get("flow_BOTH").getAmount();
+            return (@m3PERhr double) properties.get("flow_BOTH").getAmount();
         } else {
             return 0 * UnitsTools.m3/UnitsTools.hr;
         }
@@ -114,15 +114,15 @@ public class GasLibScenarioNode extends XMLElementWithID {
 
     public @m3PERhr double getUpperFlowRateBound() {
         if (properties.get("flow_UPPER") != null) {
-            return properties.get("flow_UPPER").getAmount();
+            return (@m3PERhr double) properties.get("flow_UPPER").getAmount();
         } else if (properties.get("flow_BOTH") != null) {
-            return properties.get("flow_BOTH").getAmount();
+            return (@m3PERhr double) properties.get("flow_BOTH").getAmount();
         } else {
             return 0 * UnitsTools.m3/UnitsTools.hr;
         }
     }
 
-    public void setFlowBound(double amount) {
+    public void setFlowBound(@m3PERhr double amount) {
         if (properties.get("flow_BOTH") == null) {
             GasLibScenarioProperty property = new GasLibScenarioProperty("flow_BOTH", "m^3/h", "0", Bound.BOTH);
             properties.put("flow_BOTH", property);
@@ -130,7 +130,7 @@ public class GasLibScenarioNode extends XMLElementWithID {
         properties.get("flow_BOTH").setValue("" + amount);
     }
 
-    public void setLowerFlowBound(double amount) {
+    public void setLowerFlowBound(@m3PERhr double amount) {
         if (properties.get("flow_LOWER") == null) {
             GasLibScenarioProperty property = new GasLibScenarioProperty("flow_LOWER", "m^3/h", "0", Bound.LOWER);
             properties.put("flow_LOWER", property);
@@ -138,7 +138,7 @@ public class GasLibScenarioNode extends XMLElementWithID {
         properties.get("flow_LOWER").setValue("" + amount);
     }
 
-    public void setUpperFlowBound(double amount) {
+    public void setUpperFlowBound(@m3PERhr double amount) {
         if (properties.get("flow_UPPER") == null) {
             GasLibScenarioProperty property = new GasLibScenarioProperty("flow_UPPER", "m^3/h", "0", Bound.UPPER);
             properties.put("flow_UPPER", property);
@@ -146,7 +146,7 @@ public class GasLibScenarioNode extends XMLElementWithID {
         properties.get("flow_UPPER").setValue("" + amount);
     }
     
-    public void setUpperPressureBound(double amount) {
+    public void setUpperPressureBound(@bar double amount) {
         if (properties.get("pressure_UPPER") == null) {
             GasLibScenarioProperty property = new GasLibScenarioProperty("pressure_UPPER", "bar", "0", Bound.UPPER);
             properties.put("pressure_UPPER", property);
@@ -154,7 +154,7 @@ public class GasLibScenarioNode extends XMLElementWithID {
         properties.get("pressure_UPPER").setValue("" + amount);
     }
 
-    public void setLowerPressureBound(double amount) {
+    public void setLowerPressureBound(@bar double amount) {
         if (properties.get("pressure_LOWER") == null) {
             GasLibScenarioProperty property = new GasLibScenarioProperty("pressure_LOWER", "bar", "0", Bound.LOWER);
             properties.put("pressure_LOWER", property);
@@ -171,11 +171,11 @@ public class GasLibScenarioNode extends XMLElementWithID {
     }
     
     public @bar double getLowerPressureBound() {
-        return properties.get("pressure_LOWER").getAmount();
+        return (@bar double) properties.get("pressure_LOWER").getAmount();
     }
 
     public @bar double getUpperPressureBound() {
-        return properties.get("pressure_UPPER").getAmount();
+        return (@bar double) properties.get("pressure_UPPER").getAmount();
     }
 
     @Override

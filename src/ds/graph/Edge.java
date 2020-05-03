@@ -18,6 +18,8 @@
  *
  */
 package ds.graph;
+import units.qual.*;
+
 
 /**
  * The <code>Edge</code> class represents a edge in a graph.

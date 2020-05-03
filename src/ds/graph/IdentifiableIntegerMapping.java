@@ -20,6 +20,7 @@
 package ds.graph;
 
 import java.util.Arrays;
+import units.qual.*;
 
 /**
  * The <code>IdentifiableIntegerMapping</code> class represents a mapping from a

@@ -6,6 +6,7 @@
 package gas.io.gaslib;
 
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
@@ -13,14 +14,14 @@ import units.UnitsTools;
  */
 public class GasLibResistor extends GasLibConnection {
 
-    private double diameter;
-    private double dragFactor;
+    private @mm double diameter;
+    private @Dimensionless double dragFactor;
 
-    public double getDiameter() {
+    public @mm double getDiameter() {
         return diameter;
     }
 
-    public double getDragFactor() {
+    public @Dimensionless double getDragFactor() {
         return dragFactor;
     }
     
@@ -34,10 +35,10 @@ public class GasLibResistor extends GasLibConnection {
         //System.out.println(super.getClass());
         super.parseProperties();
         if (getProperties().containsKey("diameter")) {
-            diameter = getProperties().get("diameter").getAmount();
+            diameter = (@mm double) getProperties().get("diameter").getAmount();
         }        
         if (getProperties().containsKey("dragFactor")) {
-            dragFactor = getProperties().get("dragFactor").getAmount();
+            dragFactor = (@Dimensionless double) getProperties().get("dragFactor").getAmount();
         }        
     }
 }

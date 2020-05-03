@@ -36,12 +36,13 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import units.UnitsTools;
+import units.qual.*;
 
 /**
  *
  * @author Martin
  */
-public class BoundPropagation<N, E extends AbstractEdge<N>> {
+public class BoundPropagation<N extends Object, E extends AbstractEdge<N>> {
 
     public static final boolean DEBUG = false;
     public static final boolean DEBUG_FINE = false;
@@ -55,7 +56,7 @@ public class BoundPropagation<N, E extends AbstractEdge<N>> {
     private transient Map<Object, GasLibConnection> edgeConnections;
     private transient Map<Object, GasLibIntersection> nodeIntersections;
     private transient GasLibNetworkFile networkFile;
-    private Map<E, Double> edgeParameters;
+    private Map<E, @PERm2s2 Double> edgeParameters;
 
     public BoundPropagation() {
         edgeParameters = new HashMap<>();
@@ -86,21 +87,21 @@ public class BoundPropagation<N, E extends AbstractEdge<N>> {
         return network;
     }
 
-    protected double computeParameter(E edge) {
+    protected @PERm2s2 double computeParameter(E edge) {
         GasLibConnection connection = edgeConnections.get(edge);
         if (connection instanceof GasLibPipe) {
             GasLibPipe pipe = (GasLibPipe) connection;
             return pipe.computeSiamCoefficient(networkFile);
         } else {
-            return 0 * UnitsTools.kg*UnitsTools.J/UnitsTools.g/(UnitsTools.mm*UnitsTools.mm*UnitsTools.mm*UnitsTools.mm*UnitsTools.mm);
+            return 0 * UnitsTools.km_to_m(UnitsTools.km)*UnitsTools.J/UnitsTools.g/(UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm));
         }
     }
 
-    protected double serialComposition(E edge1, E edge2) {
+    protected @PERm2s2 double serialComposition(E edge1, E edge2) {
         return edgeParameters.get(edge1) + edgeParameters.get(edge2);
     }
 
-    protected double parallelComposition(E edge1, E edge2) {
+    protected @PERm2s2 double parallelComposition(E edge1, E edge2) {
         double denom = Math.sqrt(edgeParameters.get(edge1)) + Math.sqrt(edgeParameters.get(edge2));
         return edgeParameters.get(edge1)*edgeParameters.get(edge2)/(denom*denom);
     }

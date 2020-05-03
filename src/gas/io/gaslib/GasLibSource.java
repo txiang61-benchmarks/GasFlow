@@ -18,15 +18,15 @@ import units.qual.*;
  */
 public class GasLibSource extends GasLibTerminalNode {
 
-    private double calorificValue;
-    private double gasTemperature;
-    private double heatCapacityA;
-    private double heatCapacityB;
-    private double heatCapacityC;
-    private double molarMass;
-    private double normDensity;
-    private double pseudocriticalPressure;
-    private double pseudocriticalTemperature;
+    private @MJPERm3 double calorificValue;
+    private @C double gasTemperature;
+    private @Dimensionless double heatCapacityA;
+    private @Dimensionless double heatCapacityB;
+    private @Dimensionless double heatCapacityC;
+    private @gPERmol double molarMass;
+    private @kgPERm3 double normDensity;
+    private @bar double pseudocriticalPressure;
+    private @K double pseudocriticalTemperature;
 
     public GasLibSource() {
         super();
@@ -54,7 +54,7 @@ public class GasLibSource extends GasLibTerminalNode {
 
     
     
-    public double getCalorificValue() {
+    public @MJPERm3 double getCalorificValue() {
         return calorificValue;
     }
 
@@ -62,15 +62,15 @@ public class GasLibSource extends GasLibTerminalNode {
         return gasTemperature;
     }
 
-    public double getHeatCapacityA() {
+    public @Dimensionless double getHeatCapacityA() {
         return heatCapacityA;
     }
 
-    public double getHeatCapacityB() {
+    public @Dimensionless double getHeatCapacityB() {
         return heatCapacityB;
     }
 
-    public double getHeatCapacityC() {
+    public @Dimensionless double getHeatCapacityC() {
         return heatCapacityC;
     }
 
@@ -78,7 +78,7 @@ public class GasLibSource extends GasLibTerminalNode {
         return molarMass;
     }
 
-    public double getNormDensity() {
+    public @kgPERm3 double getNormDensity() {
         return normDensity;
     }
 
@@ -102,7 +102,7 @@ public class GasLibSource extends GasLibTerminalNode {
         if (pCalorificValue.getUnit().equals("MJ_per_m_cube")) {
             pCalorificValue.setUnit("MJ/m^3");
         }
-        calorificValue = pCalorificValue.getAmount();
+        calorificValue = (@MJPERm3 double) pCalorificValue.getAmount();
         XMLProperty pGasTemperature;
         if (getProperties().containsKey("gasTemperature")) {
             pGasTemperature = getProperties().get("gasTemperature");
@@ -112,23 +112,23 @@ public class GasLibSource extends GasLibTerminalNode {
         if (pGasTemperature.getUnit().isEmpty() || pGasTemperature.getUnit().equals("C") || pGasTemperature.getUnit().equals("Celsius")) {
             pGasTemperature.setUnit("°C");
         }
-        gasTemperature = pGasTemperature.getAmount();
-        heatCapacityA = getProperties().get("coefficient-A-heatCapacity").getAmount();
-        heatCapacityB = getProperties().get("coefficient-B-heatCapacity").getAmount();
-        heatCapacityC = getProperties().get("coefficient-C-heatCapacity").getAmount();
+        gasTemperature = (@C double) pGasTemperature.getAmount();
+        heatCapacityA = (@Dimensionless double) getProperties().get("coefficient-A-heatCapacity").getAmount();
+        heatCapacityB = (@Dimensionless double) getProperties().get("coefficient-B-heatCapacity").getAmount();
+        heatCapacityC = (@Dimensionless double) getProperties().get("coefficient-C-heatCapacity").getAmount();
         XMLProperty pMolarMass = getProperties().get("molarMass");
         if (pMolarMass.getUnit().equals("kg_per_kmol")) {
             pMolarMass.setUnit("g/mol");
         }
-        molarMass = getProperties().get("molarMass").getAmount();
-        calorificValue = pMolarMass.getAmount();
+        molarMass = (@gPERmol double) getProperties().get("molarMass").getAmount();
+        calorificValue = (@MJPERm3 double) pMolarMass.getAmount();
         XMLProperty pNormDensity = getProperties().get("normDensity");
         if (pNormDensity.getUnit().equals("kg_per_m_cube")) {
             pNormDensity.setUnit("kg/m^3");
         }
-        calorificValue = pNormDensity.getAmount();      
-        pseudocriticalPressure = getProperties().get("pseudocriticalPressure").getAmount();
-        pseudocriticalTemperature = getProperties().get("pseudocriticalTemperature").getAmount();
+        calorificValue = (@MJPERm3 double) pNormDensity.getAmount();      
+        pseudocriticalPressure = (@bar double) getProperties().get("pseudocriticalPressure").getAmount();
+        pseudocriticalTemperature = (@K double) getProperties().get("pseudocriticalTemperature").getAmount();
     }
 
     @Override
