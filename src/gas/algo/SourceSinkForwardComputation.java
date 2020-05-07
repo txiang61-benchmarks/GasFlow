@@ -18,9 +18,13 @@ import gas.io.gaslib.GasLibZipArchive;
 import gas.io.tikz.TikZDataFile;
 import gas.problem.SourceSinkForwardComputationProblem;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 import units.UnitsTools;
 import units.qual.*;
+
+import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryPoolMXBean;
 
 /**
  *
@@ -64,6 +68,7 @@ public class SourceSinkForwardComputation {
     }
 
     public static void main(String[] args) {
+    	double start = System.currentTimeMillis();
         SourceSinkForwardComputationProblem problem;
 
         OnionGenerator onionGenerator = new OnionGenerator();
@@ -71,7 +76,7 @@ public class SourceSinkForwardComputation {
         double[] sinkPressures = {39.5}; // , 1.0, 1.0, 1.0, 1.0, 1.0};
         // Länge eines Zeitschrittes in Sekunden
         double[] timeSteps = {1};// {0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0};
-        double maxTime = 3600.0;
+        double maxTime = 360000.0;
         int agglomerate = 1000;
         boolean input = false;
         for (int layers = 0; layers <= 0; layers++) {
@@ -117,5 +122,16 @@ public class SourceSinkForwardComputation {
                 }
             }
         }
+    	double end = System.currentTimeMillis();
+    	System.out.println(end-start + " ms");
+
+        // Get the Java runtime
+        Runtime runtime = Runtime.getRuntime();
+        // Run the garbage collector
+        runtime.gc();
+        // Calculate the used memory
+        long memory = runtime.totalMemory() - runtime.freeMemory();
+        System.out.println("Used memory is bytes: " + memory);
+        System.out.println("Used memory is megabytes: " + memory/1024);
     }
 }
