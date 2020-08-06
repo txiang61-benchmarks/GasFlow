@@ -93,7 +93,7 @@ public class BoundPropagation<N extends Object, E extends AbstractEdge<N>> {
             GasLibPipe pipe = (GasLibPipe) connection;
             return pipe.computeSiamCoefficient(networkFile);
         } else {
-            return 0 * UnitsTools.km_to_m(UnitsTools.km)*UnitsTools.J/UnitsTools.g/(UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm));
+            return 0 * UnitsTools.m_to_mm(UnitsTools.km_to_m(UnitsTools.km))*UnitsTools.J/UnitsTools.g/(UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm)*UnitsTools.mm_to_m(UnitsTools.mm));
         }
     }
 
