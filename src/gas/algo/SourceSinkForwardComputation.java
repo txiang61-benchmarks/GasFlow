@@ -123,7 +123,6 @@ public class SourceSinkForwardComputation {
             }
         }
     	double end = System.currentTimeMillis();
-        System.out.println("=== PUnits performance evaluation ===");
     	System.out.println(end-start + " ms");
 
         // Get the Java runtime
