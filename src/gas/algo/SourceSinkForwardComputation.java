@@ -102,17 +102,17 @@ public class SourceSinkForwardComputation {
                         GasFlow next = step.getNextGasFlow();
 
                         problem.setInitialPressures(next.getPressures());
-                                                
+
                         problem.getInitialPressures().set(source, sourcePressures[i] * UnitsTools.bar);
 
                         problem.assumeExactPressures();
 
                         double pd = (@bar double) problem.getInitialPressures().get(sink) - sinkPressures[i] * UnitsTools.bar;
                         @kg double x = UnitsTools.g8_to_kg(pd/(problem.getSpeedOfSound()*problem.getSpeedOfSound())*sink.getVolume());
-                        
+
                         // Output Mass Floe
                         file.addDataPoint(timeSteps[timeStepIndex]*(t+1), x);
-                        
+
                         problem.getInitialPressures().set(sink, sinkPressures[i] * UnitsTools.bar);
                     }
                     String filename = "Onion_%1$s_%2$s_%3$s_%4$s.txt";
@@ -123,6 +123,7 @@ public class SourceSinkForwardComputation {
             }
         }
     	double end = System.currentTimeMillis();
+        System.out.println("=== PUnits performance evaluation ===");
     	System.out.println(end-start + " ms");
 
         // Get the Java runtime
