@@ -131,7 +131,7 @@ public class SourceSinkForwardComputation {
         runtime.gc();
         // Calculate the used memory
         long memory = runtime.totalMemory() - runtime.freeMemory();
-        System.out.println("Used memory is bytes: " + memory);
-        System.out.println("Used memory is megabytes: " + memory/1024);
+        System.out.println("Used memory in bytes: " + memory);
+        System.out.println("Used memory in kbytes: " + memory/1024);
     }
 }
